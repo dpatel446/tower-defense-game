@@ -1,16 +1,10 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import com.almasb.fxgl.app.scene.FXGLIntroScene;
-import com.almasb.fxgl.app.scene.SceneFactory;
-import com.almasb.fxgl.app.scene.StartupScene;
 import com.almasb.fxgl.entity.Entity;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import javax.swing.*;
 
 import java.util.Map;
 
@@ -18,25 +12,30 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 
 public class InitialGameScreen extends GameApplication {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setWidth(1050);
         gameSettings.setHeight(700);
     }
+
     @Override
     protected void initGame() {
-        getGameScene().setBackgroundRepeat("Map_plaingrass.png");
-        moneyBox(getAppWidth()/2 - 100,0);
+        getGameScene().setBackgroundRepeat("Map2.png");
+        moneyBox(getAppWidth() / 2 - 100, 0);
     }
 
     @Override
     protected void initUI() {
         Text money = getUIFactoryService().newText("", Color.BLACK, 22);
         Text moneyText = getUIFactoryService().newText("Money: ", Color.BLACK, 22);
-        money.setTranslateX(getAppWidth()/2 + 25);
+        money.setTranslateX(getAppWidth() / 2 + 25);
         money.setTranslateY(25);
 
-        moneyText.setTranslateX(getAppWidth()/2 - 75);
+        moneyText.setTranslateX(getAppWidth() / 2 - 75);
         moneyText.setTranslateY(25);
 
         money.textProperty().bind(getWorldProperties().intProperty("money_count").asString());
@@ -56,11 +55,7 @@ public class InitialGameScreen extends GameApplication {
         return entityBuilder()
                 .at(x, y)
                 .type(EntityType.MONEY)
-                .viewWithBBox(new Rectangle(200,50 , Color.GOLD))
+                .viewWithBBox(new Rectangle(200, 50, Color.GOLD))
                 .buildAndAttach();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
