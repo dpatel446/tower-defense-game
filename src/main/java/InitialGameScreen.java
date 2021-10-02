@@ -26,6 +26,22 @@ public class InitialGameScreen extends GameApplication {
     protected void initGame() {
         getGameScene().setBackgroundRepeat("Map2.png");
         moneyBox(getAppWidth() / 2 - 100, 0);
+
+        Rectangle healthBarEasy = new Rectangle(100, 30, Color.GREEN);
+        Rectangle healthBarMedium = new Rectangle(75, 30, Color.ORANGE);
+        Rectangle healthBarHard = new Rectangle(50, 30, Color.RED);
+
+
+        entityBuilder()
+                .at(900, 30)
+                .view("TechTower.jpg")
+                .buildAndAttach();
+
+        entityBuilder()
+                .at(900, 0)
+                .view(healthBarEasy)
+                .buildAndAttach();
+
     }
 
     @Override
