@@ -12,6 +12,9 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 
 public class InitialGameScreen extends GameApplication {
+    //comment the following out during integration.
+    private GameDifficulty difficulty = GameDifficulty.MEDIUM;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -31,7 +34,6 @@ public class InitialGameScreen extends GameApplication {
         Rectangle healthBarMedium = new Rectangle(75, 30, Color.ORANGE);
         Rectangle healthBarHard = new Rectangle(50, 30, Color.RED);
 
-
         entityBuilder()
                 .at(900, 30)
                 .view("TechTower.jpg")
@@ -42,6 +44,24 @@ public class InitialGameScreen extends GameApplication {
                 .view(healthBarEasy)
                 .buildAndAttach();
 
+    }
+
+    public GameDifficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(GameDifficulty diff) {
+        difficulty = diff;
+    }
+
+    public int getInitMoney() {
+        if (difficulty == GameDifficulty.EASY) {
+            return 500;
+        } else if (difficulty == GameDifficulty.MEDIUM) {
+            return 300;
+        } else {
+            return 100;
+        }
     }
 
     @Override
@@ -55,7 +75,6 @@ public class InitialGameScreen extends GameApplication {
         moneyText.setTranslateY(25);
 
         money.textProperty().bind(getWorldProperties().intProperty("money_count").asString());
-
         getGameScene().addUINodes(money, moneyText);
     }
 
@@ -63,7 +82,7 @@ public class InitialGameScreen extends GameApplication {
     //The integer value is the initial money at setup.
     //Modify it to represent change with the difficulty level.
     protected void initGameVars(Map<String, Object> vars) {
-        vars.put("money_count", 100);
+        vars.put("money_count", getInitMoney());
     }
 
     //Just a background box
