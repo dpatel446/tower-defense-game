@@ -4,7 +4,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
 public class TestMoney {
-    private InitialGameScreen init = new InitialGameScreen();
+    private TowerDefense init = new TowerDefense();
 
     @Test
     public void testMoneyInit() {

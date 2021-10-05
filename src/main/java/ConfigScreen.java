@@ -1,5 +1,4 @@
-package towerdefense;
-
+import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.IntroScene;
 import com.almasb.fxgl.app.scene.MenuType;
@@ -80,7 +79,6 @@ public class ConfigScreen extends FXGLMenu {
                     if ((TowerDefense.name != null)
                             || (!(TowerDefense.name.getValue().isEmpty()))
                             || (!(TowerDefense.name.getValue().trim().isEmpty()))) {
-                        System.out.println("String: " + TowerDefense.name.getValue());
                         fireNewGame();
                     }
                 });
@@ -90,6 +88,17 @@ public class ConfigScreen extends FXGLMenu {
 
         getContentRoot().getChildren().addAll(initialScreen);
     }
+
+//    private void initializeGame() {
+//        System.out.println("Woo");
+//        InitialGameScreen gameScreen = new InitialGameScreen();
+//        TowerDefense.gameSettings.setMainMenuEnabled(false);
+//        TowerDefense.gameSettings.setGameMenuEnabled(false);
+//        gameScreen.initSettings(TowerDefense.gameSettings);
+//        gameScreen.setDifficulty(TowerDefense.difficulty);
+//        gameScreen.initGame();
+//
+//    }
 
     @NotNull
     @Override
