@@ -13,7 +13,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class InitialGameScreen extends GameApplication {
     //comment the following out during integration.
-    private GameDifficulty difficulty = GameDifficulty.MEDIUM;
+    private GameDifficulty difficulty = GameDifficulty.EASY;
 
     public static void main(String[] args) {
         launch(args);
@@ -30,9 +30,7 @@ public class InitialGameScreen extends GameApplication {
         getGameScene().setBackgroundRepeat("Map2.png");
         moneyBox(getAppWidth() / 2 - 100, 0);
 
-        Rectangle healthBarEasy = new Rectangle(100, 30, Color.GREEN);
-        Rectangle healthBarMedium = new Rectangle(75, 30, Color.ORANGE);
-        Rectangle healthBarHard = new Rectangle(50, 30, Color.RED);
+        Rectangle healthBar = getInitHealth();
 
         entityBuilder()
                 .at(900, 30)
@@ -41,13 +39,23 @@ public class InitialGameScreen extends GameApplication {
 
         entityBuilder()
                 .at(900, 0)
-                .view(healthBarEasy)
+                .view(healthBar)
                 .buildAndAttach();
 
     }
 
     public GameDifficulty getDifficulty() {
         return difficulty;
+    }
+
+    public Rectangle getInitHealth() {
+        if (difficulty == GameDifficulty.EASY) {
+            return new Rectangle(100, 30, Color.GREEN);
+        } else if (difficulty == GameDifficulty.MEDIUM) {
+            return new Rectangle(75, 30, Color.ORANGE);
+        } else {
+            return new Rectangle(50, 30, Color.RED);
+        }
     }
 
     public void setDifficulty(GameDifficulty diff) {
