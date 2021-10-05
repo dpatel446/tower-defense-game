@@ -13,7 +13,7 @@ import static com.almasb.fxgl.dsl.FXGL.*;
 
 public class InitialGameScreen extends GameApplication {
     //comment the following out during integration.
-    private GameDifficulty difficulty = GameDifficulty.EASY;
+    private GameDifficulty difficulty;
 
     public static void main(String[] args) {
         launch(args);
@@ -33,12 +33,12 @@ public class InitialGameScreen extends GameApplication {
         Rectangle healthBar = getInitHealth();
 
         entityBuilder()
-                .at(900, 30)
+                .at(900, 0)
                 .view("TechTower.jpg")
                 .buildAndAttach();
 
         entityBuilder()
-                .at(900, 0)
+                .at(900, 100)
                 .view(healthBar)
                 .buildAndAttach();
 
