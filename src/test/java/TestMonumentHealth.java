@@ -3,6 +3,9 @@ import org.junit.jupiter.api.Test;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
+
 
 	public class TestMonumentHealth {
 	    private InitialGameScreen init = new InitialGameScreen();
@@ -17,7 +20,7 @@ import javafx.scene.shape.Rectangle;
 	            return false;
 	        }
 	    }
-	    
+
 	    @Test
 	    public void testMonumentHealthInit() {
 	        init.setDifficulty(GameDifficulty.EASY);
@@ -29,6 +32,19 @@ import javafx.scene.shape.Rectangle;
 	        init.setDifficulty(GameDifficulty.HARD);
 	        assertEquals(init.getInitHealth(), new Rectangle(50, 30, Color.RED));
 	    }
-	
+	    
+	    @Test
+	    public void testMonumentHealth2() {
+	        init.setDifficulty(GameDifficulty.EASY);
+	        assertThat(init.getInitHealth().getWidth() == 100 && init.getInitHealth().getHeight() == 30 && 
+	        		init.getInitHealth().getFill() == Color.GREEN, is(true));
 
+	        init.setDifficulty(GameDifficulty.MEDIUM);
+	        assertThat(init.getInitHealth().getWidth() == 75 && init.getInitHealth().getHeight() == 30 &&
+	        		init.getInitHealth().getFill() == Color.ORANGE, is(true));
+
+	        init.setDifficulty(GameDifficulty.HARD);
+	        assertThat(init.getInitHealth().getWidth() == 50 && init.getInitHealth().getHeight() == 30 &&
+	        		init.getInitHealth().getFill() == Color.RED, is(true));
+	    }
 }
