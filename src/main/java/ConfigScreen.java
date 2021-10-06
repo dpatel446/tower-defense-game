@@ -1,4 +1,5 @@
-import com.almasb.fxgl.app.GameSettings;
+package towerdefense;
+
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.IntroScene;
 import com.almasb.fxgl.app.scene.MenuType;
@@ -74,31 +75,23 @@ public class ConfigScreen extends FXGLMenu {
         lblBoundPlayer.textProperty().bind(TowerDefense.name);
         //lblBoundDifficulty.textProperty().bind(TowerDefense.difficulty);
 
-        ConfigScreenButton btnProceed = new ConfigScreenButton("Proceed",
+        ConfigScreenButton btnProceed = new ConfigScreenButton("Proceed");
+
+        btnProceed.setOnAction(
                 () -> {
                     if ((TowerDefense.name != null)
-                            || (!(TowerDefense.name.getValue().isEmpty()))
-                            || (!(TowerDefense.name.getValue().trim().isEmpty()))) {
+                            && (!(TowerDefense.name.getValue().isEmpty()))
+                            && (!(TowerDefense.name.getValue().trim().isEmpty()))) {
                         fireNewGame();
                     }
-                });
+                }
+        );
 
         VBox initialScreen = new VBox(5, renamePanel, btnEasy, btnMedium, btnHard, playerBox, btnProceed);
         initialScreen.setAlignment(Pos.CENTER);
 
         getContentRoot().getChildren().addAll(initialScreen);
     }
-
-//    private void initializeGame() {
-//        System.out.println("Woo");
-//        InitialGameScreen gameScreen = new InitialGameScreen();
-//        TowerDefense.gameSettings.setMainMenuEnabled(false);
-//        TowerDefense.gameSettings.setGameMenuEnabled(false);
-//        gameScreen.initSettings(TowerDefense.gameSettings);
-//        gameScreen.setDifficulty(TowerDefense.difficulty);
-//        gameScreen.initGame();
-//
-//    }
 
     @NotNull
     @Override
@@ -142,6 +135,21 @@ public class ConfigScreen extends FXGLMenu {
 
         private Text text;
 
+        public ConfigScreenButton(String name) {
+            this.name = name;
+            this.action = action;
+
+            text = getUIFactoryService().newText(name, Color.BLACK, 16);
+
+            setAlignment(Pos.CENTER);
+
+            setOnMouseClicked(e -> {
+                action.run();
+            });
+
+            getChildren().add(text);
+        }
+
         public ConfigScreenButton(String name, Runnable action) {
             this.name = name;
             this.action = action;
@@ -155,6 +163,10 @@ public class ConfigScreen extends FXGLMenu {
             });
 
             getChildren().add(text);
+        }
+
+        public void setOnAction(Runnable action) {
+            this.action = action;
         }
     }
 }
