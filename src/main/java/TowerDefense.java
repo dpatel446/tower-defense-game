@@ -1,7 +1,6 @@
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.app.scene.FXGLMenu;
-import com.almasb.fxgl.app.scene.IntroScene;
 import com.almasb.fxgl.app.scene.SceneFactory;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -9,11 +8,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -23,14 +17,12 @@ import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameWorld;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getUIFactoryService;
 
 public class TowerDefense extends GameApplication {
-    public static StringProperty name = new SimpleStringProperty("");
-    public static GameDifficulty difficulty = GameDifficulty.EASY;
-    public static IntegerProperty money = new SimpleIntegerProperty(0);
-    public static GameSettings gameSettings;
+    private static StringProperty name = new SimpleStringProperty("");
+    private static GameDifficulty difficulty = GameDifficulty.EASY;
+    private static IntegerProperty money = new SimpleIntegerProperty(0);
+    private static GameSettings gameSettings;
 
     private static String baseTextField = "Enter your name here";
 
@@ -77,10 +69,6 @@ public class TowerDefense extends GameApplication {
                 .buildAndAttach();
     }
 
-    public GameDifficulty getDifficulty() {
-        return difficulty;
-    }
-
     public Rectangle getInitHealth() {
         if (difficulty == GameDifficulty.EASY) {
             return new Rectangle(100, 30, Color.GREEN);
@@ -89,10 +77,6 @@ public class TowerDefense extends GameApplication {
         } else {
             return new Rectangle(50, 30, Color.RED);
         }
-    }
-
-    public void setDifficulty(GameDifficulty diff) {
-        difficulty = diff;
     }
 
     public int getInitMoney() {
@@ -133,6 +117,22 @@ public class TowerDefense extends GameApplication {
                 .type(EntityType.MONEY)
                 .viewWithBBox(new Rectangle(200, 50, Color.GOLD))
                 .buildAndAttach();
+    }
+
+    public static StringProperty getName() {
+        return TowerDefense.name;
+    }
+
+    public static void setName(String name) {
+        TowerDefense.name.setValue(name);
+    }
+
+    public static GameDifficulty getDifficulty() {
+        return TowerDefense.difficulty;
+    }
+
+    public static void setDifficulty(GameDifficulty difficulty) {
+        TowerDefense.difficulty = difficulty;
     }
 
     public static void main(String[] args) {

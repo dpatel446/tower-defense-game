@@ -1,12 +1,9 @@
 import com.almasb.fxgl.app.scene.FXGLMenu;
 import com.almasb.fxgl.app.scene.MenuType;
-import com.almasb.fxgl.dsl.FXGL;
-import com.sun.tools.javac.Main;
 import javafx.beans.binding.StringBinding;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -15,14 +12,14 @@ import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getUIFactoryService;
-import static javafx.application.Platform.exit;
 
 public class WelcomeMenu extends FXGLMenu {
     public WelcomeMenu() {
         super(MenuType.MAIN_MENU);
 
         Text introText = new Text("Team 83's Tower Defense Game");
-        WelcomeMenuButton btnStart = new WelcomeMenuButton("Start", () -> getController().gotoGameMenu());
+        WelcomeMenuButton btnStart = new WelcomeMenuButton("Start",
+            () -> getController().gotoGameMenu());
         WelcomeMenuButton btnExit = new WelcomeMenuButton("Exit", () -> fireExit());
 
         VBox welcome = new VBox(15,
@@ -36,7 +33,8 @@ public class WelcomeMenu extends FXGLMenu {
 
     @NotNull
     @Override
-    protected Button createActionButton(@NotNull StringBinding stringBinding, @NotNull Runnable runnable) {
+    protected Button createActionButton(@NotNull StringBinding stringBinding,
+                                        @NotNull Runnable runnable) {
         return new Button();
     }
 

@@ -1,10 +1,6 @@
 import com.almasb.fxgl.app.scene.FXGLMenu;
-import com.almasb.fxgl.app.scene.IntroScene;
 import com.almasb.fxgl.app.scene.MenuType;
-import com.almasb.fxgl.dsl.FXGL;
 import javafx.beans.binding.StringBinding;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableStringValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getUIFactoryService;
 
 public class ConfigScreen extends FXGLMenu {
-    public String baseTextField = "Enter your name here";
+    private String baseTextField = "Enter your name here";
 
     public ConfigScreen() {
         super(MenuType.GAME_MENU);
@@ -33,34 +29,34 @@ public class ConfigScreen extends FXGLMenu {
         Button btnEnter = new Button("Enter");
 
         btnEnter.setOnAction(
-                (ActionEvent e) -> {
-                    TowerDefense.name.setValue(renameInput.getText());
-                }
+            (ActionEvent e) -> {
+                TowerDefense.setName(renameInput.getText());
+            }
         );
         renamePanel.getChildren().addAll(renameInput, btnEnter);
 
         Button btnEasy = new Button("Easy");
 
         btnEasy.setOnAction(
-                (ActionEvent e) -> {
-                    TowerDefense.difficulty = GameDifficulty.EASY;
-                }
+            (ActionEvent e) -> {
+                TowerDefense.setDifficulty(GameDifficulty.EASY);
+            }
         );
 
         Button btnMedium = new Button("Medium");
 
         btnMedium.setOnAction(
-                (ActionEvent e) -> {
-                    TowerDefense.difficulty = GameDifficulty.MEDIUM;
-                }
+            (ActionEvent e) -> {
+                TowerDefense.setDifficulty(GameDifficulty.MEDIUM);
+            }
         );
 
         Button btnHard = new Button("Hard");
 
         btnHard.setOnAction(
-                (ActionEvent e) -> {
-                    TowerDefense.difficulty = GameDifficulty.HARD;
-                }
+            (ActionEvent e) -> {
+                TowerDefense.setDifficulty(GameDifficulty.HARD);
+            }
         );
 
         Label lblPlayer = new Label("Player Name: ");
@@ -70,22 +66,23 @@ public class ConfigScreen extends FXGLMenu {
         HBox playerBox = new HBox(lblPlayer, lblBoundPlayer);
         //HBox difficultyBox = new HBox(lblDifficulty, lblBoundDifficulty);
 
-        lblBoundPlayer.textProperty().bind(TowerDefense.name);
+        lblBoundPlayer.textProperty().bind(TowerDefense.getName());
         //lblBoundDifficulty.textProperty().bind(TowerDefense.difficulty);
 
         ConfigScreenButton btnProceed = new ConfigScreenButton("Proceed");
 
         btnProceed.setOnAction(
-                () -> {
-                    if ((TowerDefense.name.getValue() != null)
-                            && (!(TowerDefense.name.getValue().isEmpty()))
-                            && (!(TowerDefense.name.getValue().trim().isEmpty()))) {
-                        fireNewGame();
-                    }
+            () -> {
+                if ((TowerDefense.getName().getValue() != null)
+                        && (!(TowerDefense.getName().getValue().isEmpty()))
+                        && (!(TowerDefense.getName().getValue().trim().isEmpty()))) {
+                    fireNewGame();
                 }
+            }
         );
 
-        VBox initialScreen = new VBox(5, renamePanel, btnEasy, btnMedium, btnHard, playerBox, btnProceed);
+        VBox initialScreen = new VBox(5, renamePanel, btnEasy, btnMedium, btnHard, playerBox);
+        initialScreen.getChildren().addAll(btnProceed);
         initialScreen.setAlignment(Pos.CENTER);
 
         getContentRoot().getChildren().addAll(initialScreen);
@@ -93,7 +90,8 @@ public class ConfigScreen extends FXGLMenu {
 
     @NotNull
     @Override
-    protected Button createActionButton(@NotNull StringBinding stringBinding, @NotNull Runnable runnable) {
+    protected Button createActionButton(@NotNull StringBinding stringBinding,
+                                        @NotNull Runnable runnable) {
         return new Button();
     }
 
