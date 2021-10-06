@@ -1,11 +1,6 @@
-import com.almasb.fxgl.app.GameApplication;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.control.TextField;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class WelcomeScreenTest {
@@ -20,7 +15,7 @@ public class WelcomeScreenTest {
 
     @Before
     public void setup() {
-        //renameInput1 = new TextField(null);
+        renameInput1 = null;
         renameInput2 = "";
         renameInput3 = "    ";
 

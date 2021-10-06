@@ -13,9 +13,9 @@ public class TestMonumentHealth {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Rectangle) {
-            return init.getInitHealth().getHeight() == ((Rectangle) o).getHeight() &&
-                    init.getInitHealth().getWidth() == ((Rectangle) o).getWidth() &&
-                    init.getInitHealth().getFill() == ((Rectangle) o).getFill();
+            return init.getInitHealth().getHeight() == ((Rectangle) o).getHeight()
+                    && init.getInitHealth().getWidth() == ((Rectangle) o).getWidth()
+                    && init.getInitHealth().getFill() == ((Rectangle) o).getFill();
         } else {
             return false;
         }
@@ -37,15 +37,15 @@ public class TestMonumentHealth {
     @Test
     public void testMonumentHealth2() {
         init.setDifficulty(GameDifficulty.EASY);
-        assertThat(init.getInitHealth().getWidth() == 100 && init.getInitHealth().getHeight() == 30 &&
-                init.getInitHealth().getFill() == Color.GREEN, is(true));
+        assertThat(init.getInitHealth().getWidth() == 100 && init.getInitHealth().getHeight() == 30
+                && init.getInitHealth().getFill() == Color.GREEN, is(true));
 
         init.setDifficulty(GameDifficulty.MEDIUM);
-        assertThat(init.getInitHealth().getWidth() == 75 && init.getInitHealth().getHeight() == 30 &&
-                init.getInitHealth().getFill() == Color.ORANGE, is(true));
+        assertThat(init.getInitHealth().getWidth() == 75 && init.getInitHealth().getHeight() == 30
+                && init.getInitHealth().getFill() == Color.ORANGE, is(true));
 
         init.setDifficulty(GameDifficulty.HARD);
-        assertThat(init.getInitHealth().getWidth() == 50 && init.getInitHealth().getHeight() == 30 &&
-                init.getInitHealth().getFill() == Color.RED, is(true));
+        assertThat(init.getInitHealth().getWidth() == 50 && init.getInitHealth().getHeight() == 30
+                && init.getInitHealth().getFill() == Color.RED, is(true));
     }
 }
