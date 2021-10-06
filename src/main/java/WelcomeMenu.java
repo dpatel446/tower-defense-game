@@ -49,7 +49,7 @@ public class WelcomeMenu extends FXGLMenu {
     @NotNull
     @Override
     protected Node createBackground(double v, double v1) {
-        return new Rectangle(1015, 700, Color.LIGHTSLATEGREY);
+        return new Rectangle(1050, 700, Color.LIGHTSLATEGREY);
     }
 
     @NotNull
