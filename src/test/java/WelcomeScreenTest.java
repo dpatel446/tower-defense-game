@@ -1,5 +1,3 @@
-package towerdefense;
-
 import com.almasb.fxgl.app.GameApplication;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
