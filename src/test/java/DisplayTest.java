@@ -1,12 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
-import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;
 import javafx.scene.paint.Color;
-import org.junit.jupiter.api.Test;
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-
-
 
 public class DisplayTest {
     private TowerDefense init = new TowerDefense();
