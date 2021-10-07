@@ -7,7 +7,7 @@ public class DisplayTest {
     //Rectangle healthbar = init.getInitHealth();
 
     @Test
-    public void DisplayMonumentHealth() {
+    public void displayMonumentHealth() {
         init.setDifficulty(GameDifficulty.EASY);
         assertEquals(100, init.getInitHealth().getWidth());
         assertEquals(Color.GREEN, init.getInitHealth().getFill());
