@@ -135,6 +135,10 @@ public class TowerDefense extends GameApplication {
         TowerDefense.difficulty = difficulty;
     }
 
+    public static GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

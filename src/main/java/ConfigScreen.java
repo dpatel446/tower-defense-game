@@ -19,6 +19,9 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getUIFactoryService;
 
 public class ConfigScreen extends FXGLMenu {
     private String baseTextField = "Enter your name here";
+    private Button buttonEasy;
+    private Button buttonMedium;
+    private Button buttonHard;
 
     public ConfigScreen() {
         super(MenuType.GAME_MENU);
@@ -42,6 +45,7 @@ public class ConfigScreen extends FXGLMenu {
                 TowerDefense.setDifficulty(GameDifficulty.EASY);
             }
         );
+        buttonEasy = btnEasy;
 
         Button btnMedium = new Button("Medium");
 
@@ -50,6 +54,7 @@ public class ConfigScreen extends FXGLMenu {
                 TowerDefense.setDifficulty(GameDifficulty.MEDIUM);
             }
         );
+        buttonMedium = btnMedium;
 
         Button btnHard = new Button("Hard");
 
@@ -58,6 +63,7 @@ public class ConfigScreen extends FXGLMenu {
                 TowerDefense.setDifficulty(GameDifficulty.HARD);
             }
         );
+        buttonHard = btnHard;
 
         Label lblPlayer = new Label("Player Name: ");
         Label lblBoundPlayer = new Label();
@@ -87,6 +93,8 @@ public class ConfigScreen extends FXGLMenu {
 
         getContentRoot().getChildren().addAll(initialScreen);
     }
+
+
 
     @NotNull
     @Override
@@ -123,6 +131,18 @@ public class ConfigScreen extends FXGLMenu {
     @Override
     protected Node createVersionView(@NotNull String s) {
         return new Rectangle();
+    }
+
+    public Button getButtonEasy() {
+        return buttonEasy;
+    }
+
+    public Button getButtonMedium() {
+        return buttonMedium;
+    }
+
+    public Button getButtonHard() {
+        return buttonHard;
     }
 
     private static class ConfigScreenButton extends StackPane {

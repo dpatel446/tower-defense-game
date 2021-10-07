@@ -1,5 +1,5 @@
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
@@ -24,7 +24,7 @@ public class WelcomeScreenTest {
         proceed = false;
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test
     public void testICSName() {
         //Test null
         nameTester = renameInput1;
