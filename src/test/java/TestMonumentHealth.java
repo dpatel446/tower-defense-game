@@ -21,18 +21,6 @@ public class TestMonumentHealth {
         }
     }
 
-    @Test
-    public void testMonumentHealthInit() {
-        /* init.setDifficulty(GameDifficulty.EASY);
-        assertEquals(init.getInitHealth(), new Rectangle(100, 30, Color.GREEN));
-
-        init.setDifficulty(GameDifficulty.MEDIUM);
-        assertEquals(init.getInitHealth(), new Rectangle(75, 30, Color.ORANGE));
-
-        init.setDifficulty(GameDifficulty.HARD);
-        assertEquals(init.getInitHealth(), new Rectangle(50, 30, Color.RED));
-         */
-    }
 
     @Test
     public void testMonumentHealth2() {
