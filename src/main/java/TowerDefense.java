@@ -34,9 +34,9 @@ public class TowerDefense extends GameApplication {
 
     private static String baseTextField = "Enter your name here";
 
-    private static IntegerProperty tower1Tokens = new SimpleIntegerProperty(0);
-    private static IntegerProperty tower2Tokens = new SimpleIntegerProperty(0);
-    private static IntegerProperty tower3Tokens = new SimpleIntegerProperty(0);
+    private static IntegerProperty earthTowerTokens = new SimpleIntegerProperty(0);
+    private static IntegerProperty fireTowerTokens = new SimpleIntegerProperty(0);
+    private static IntegerProperty iceTowerTokens = new SimpleIntegerProperty(0);
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -119,19 +119,19 @@ public class TowerDefense extends GameApplication {
         VBox towerStorage = new VBox();
 
         Text storeText = FXGL.getUIFactoryService().newText("Store", Color.BLACK, 22);
-        Button tower1 = new Button();
-        Button tower2 = new Button();
-        Button tower3 = new Button();
+        Button earthTower = new Button();
+        Button fireTower = new Button();
+        Button iceTower = new Button();
 
         Text storageText = FXGL.getUIFactoryService().newText("Storage", Color.BLACK, 22);
-        Button tower1Stored = new Button();
-        Button tower2Stored = new Button();
-        Button tower3Stored = new Button();
-        tower1Stored.textProperty().bind(tower1Tokens.asString());
-        tower2Stored.textProperty().bind(tower2Tokens.asString());
-        tower3Stored.textProperty().bind(tower3Tokens.asString());
+        Button earthTowerStored = new Button();
+        Button fireTowerStored = new Button();
+        Button iceTowerStored = new Button();
+        earthTowerStored.textProperty().bind(earthTowerTokens.asString());
+        fireTowerStored.textProperty().bind(fireTowerTokens.asString());
+        iceTowerStored.textProperty().bind(iceTowerTokens.asString());
 
-        towerStorage.getChildren().addAll(storeText, tower1, tower2, tower3, storageText, tower1Stored, tower2Stored, tower3Stored);
+        towerStorage.getChildren().addAll(storeText, earthTower, fireTower, iceTower, storageText, earthTowerStored, fireTowerStored, iceTowerStored);
 
         towerStorage.setAlignment(Pos.CENTER);
         towerStorage.setBackground(new Background(new BackgroundFill(Color.GOLD, new CornerRadii(0), new Insets(5.0))));
