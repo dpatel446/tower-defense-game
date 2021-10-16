@@ -8,6 +8,14 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -25,6 +33,10 @@ public class TowerDefense extends GameApplication {
     private static GameSettings gameSettings;
 
     private static String baseTextField = "Enter your name here";
+
+    private static IntegerProperty tower1Stored = new SimpleIntegerProperty(0);
+    private static IntegerProperty tower2Stored = new SimpleIntegerProperty(0);
+    private static IntegerProperty tower3Stored = new SimpleIntegerProperty(0);
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -91,6 +103,7 @@ public class TowerDefense extends GameApplication {
 
     @Override
     protected void initUI() {
+        //Money******************************************************************************************//
         Text money = FXGL.getUIFactoryService().newText("", Color.BLACK, 22);
         Text moneyText = FXGL.getUIFactoryService().newText("Money: ", Color.BLACK, 22);
         money.setTranslateX(getAppWidth() / 2 + 25);
@@ -100,7 +113,33 @@ public class TowerDefense extends GameApplication {
         moneyText.setTranslateY(25);
 
         money.textProperty().bind(getWorldProperties().intProperty("money_count").asString());
-        getGameScene().addUINodes(money, moneyText);
+        //***********************************************************************************************//
+
+        //Store & Storage********************************************************************************//
+        VBox towerStorage = new VBox();
+
+        Text storeText = FXGL.getUIFactoryService().newText("Store", Color.BLACK, 22);
+        Button tower1 = new Button();
+        Button tower2 = new Button();
+        Button tower3 = new Button();
+
+        Text storageText = FXGL.getUIFactoryService().newText("Storage", Color.BLACK, 22);
+        Button tower1Number = new Button();
+        Button tower2Number = new Button();
+        Button tower3Number = new Button();
+        tower1Number.textProperty().bind(tower1Stored.asString());
+        tower2Number.textProperty().bind(tower2Stored.asString());
+        tower3Number.textProperty().bind(tower3Stored.asString());
+
+        towerStorage.getChildren().addAll(storeText, tower1, tower2, tower3, storageText, tower1Number, tower2Number, tower3Number);
+
+        towerStorage.setAlignment(Pos.CENTER);
+        towerStorage.setBackground(new Background(new BackgroundFill(Color.GOLD, new CornerRadii(0), new Insets(5.0))));
+        towerStorage.setTranslateX(getAppWidth() / 2 - 75);
+        towerStorage.setTranslateY(50);
+        //***********************************************************************************************//
+
+        getGameScene().addUINodes(money, moneyText, towerStorage);
     }
 
     //Update money_count to show the updated money
