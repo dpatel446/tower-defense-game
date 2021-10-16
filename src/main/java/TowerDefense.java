@@ -34,9 +34,9 @@ public class TowerDefense extends GameApplication {
 
     private static String baseTextField = "Enter your name here";
 
-    private static IntegerProperty tower1Stored = new SimpleIntegerProperty(0);
-    private static IntegerProperty tower2Stored = new SimpleIntegerProperty(0);
-    private static IntegerProperty tower3Stored = new SimpleIntegerProperty(0);
+    private static IntegerProperty tower1Tokens = new SimpleIntegerProperty(0);
+    private static IntegerProperty tower2Tokens = new SimpleIntegerProperty(0);
+    private static IntegerProperty tower3Tokens = new SimpleIntegerProperty(0);
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -124,14 +124,14 @@ public class TowerDefense extends GameApplication {
         Button tower3 = new Button();
 
         Text storageText = FXGL.getUIFactoryService().newText("Storage", Color.BLACK, 22);
-        Button tower1Number = new Button();
-        Button tower2Number = new Button();
-        Button tower3Number = new Button();
-        tower1Number.textProperty().bind(tower1Stored.asString());
-        tower2Number.textProperty().bind(tower2Stored.asString());
-        tower3Number.textProperty().bind(tower3Stored.asString());
+        Button tower1Stored = new Button();
+        Button tower2Stored = new Button();
+        Button tower3Stored = new Button();
+        tower1Stored.textProperty().bind(tower1Tokens.asString());
+        tower2Stored.textProperty().bind(tower2Tokens.asString());
+        tower3Stored.textProperty().bind(tower3Tokens.asString());
 
-        towerStorage.getChildren().addAll(storeText, tower1, tower2, tower3, storageText, tower1Number, tower2Number, tower3Number);
+        towerStorage.getChildren().addAll(storeText, tower1, tower2, tower3, storageText, tower1Stored, tower2Stored, tower3Stored);
 
         towerStorage.setAlignment(Pos.CENTER);
         towerStorage.setBackground(new Background(new BackgroundFill(Color.GOLD, new CornerRadii(0), new Insets(5.0))));
