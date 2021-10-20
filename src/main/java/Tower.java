@@ -13,13 +13,13 @@ public abstract class Tower {
         this.name = name;
         this.type = type;
         if (difficulty == GameDifficulty.EASY) {
-            cost = 50;
+            cost = 10;
         }
         else if (difficulty == GameDifficulty.MEDIUM) {
-            cost = 100;
+            cost = 20;
         }
         else {
-            cost = 150;
+            cost = 30;
         }
     }
 
