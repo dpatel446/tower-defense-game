@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+// import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
@@ -79,7 +79,7 @@ public class TowerDefense extends GameApplication {
         }
     }
 
-    public int getInitMoney() {
+    public static int getInitMoney() {
         if (difficulty == GameDifficulty.EASY) {
             return 500;
         } else if (difficulty == GameDifficulty.MEDIUM) {
@@ -88,6 +88,31 @@ public class TowerDefense extends GameApplication {
             return 100;
         }
     }
+
+    public void setInitMoney() {
+        if (difficulty == GameDifficulty.EASY) {
+            TowerDefense.money.setValue(500);
+        } else if (difficulty == GameDifficulty.MEDIUM) {
+            TowerDefense.money.setValue(300);
+        } else {
+            TowerDefense.money.setValue(100);
+        }
+    }
+
+    public static IntegerProperty getMoney() {
+        return TowerDefense.money;
+    }
+
+    //Makes the transaction, returns true if it was a success and false if not enough money.
+    public static boolean transaction(Tower t) {
+        if (getMoney().intValue()>=t.getCost()) {
+            TowerDefense.money.setValue(getMoney().intValue()-t.getCost());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     @Override
     protected void initUI() {
@@ -99,15 +124,9 @@ public class TowerDefense extends GameApplication {
         moneyText.setTranslateX(getAppWidth() / 2 - 75);
         moneyText.setTranslateY(25);
 
-        money.textProperty().bind(getWorldProperties().intProperty("money_count").asString());
+        money.textProperty().bind(TowerDefense.money.asString());
+        setInitMoney();
         getGameScene().addUINodes(money, moneyText);
-    }
-
-    //Update money_count to show the updated money
-    //The integer value is the initial money at setup.
-    //Modify it to represent change with the difficulty level.
-    protected void initGameVars(Map<String, Object> vars) {
-        vars.put("money_count", getInitMoney());
     }
 
     //Just a background box
