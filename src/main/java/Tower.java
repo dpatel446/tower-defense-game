@@ -1,3 +1,5 @@
+import javafx.scene.paint.Color;
+
 public abstract class Tower {
     private int cost;
     private String name;
@@ -40,5 +42,7 @@ public abstract class Tower {
     }
     
     public abstract String getDescription();
+
+    public abstract Color getColor();
     
 }
