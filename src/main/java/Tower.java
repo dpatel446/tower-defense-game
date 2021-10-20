@@ -6,20 +6,20 @@ public abstract class Tower {
     private GameDifficulty difficulty;
 
     protected Tower() {
-		
+        this("a","b",TowerDefense.getDifficulty());
     }
 
     protected Tower(String name, String type, GameDifficulty difficulty) {
         this.name = name;
         this.type = type;
         if (difficulty == GameDifficulty.EASY) {
-        	cost = 50;
+            cost = 50;
         }
         else if (difficulty == GameDifficulty.MEDIUM) {
-        	cost = 100;
+            cost = 100;
         }
         else {
-        	cost = 150;
+            cost = 150;
         }
     }
 
