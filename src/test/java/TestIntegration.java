@@ -11,7 +11,7 @@ public class TestIntegration {
     public void testDifficultyButtons() throws InterruptedException {
         TestThread thread = new TestThread();
         thread.start();
-        Thread.sleep(750);
+        Thread.sleep(5000);
         //Timeout to allow the FXGL application to initialize its services prior to running test
         ConfigScreen configScreen = new ConfigScreen();
         configScreen.getButtonEasy().fire();
