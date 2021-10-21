@@ -6,10 +6,13 @@ public class TransactionTest {
 
     @Test
     public void testTransaction() throws InterruptedException {
-        TransactionTest.TestThread thread = new TransactionTest.TestThread();
-        thread.start();
-        thread.sleep(3000);
+        //TransactionTest.TestThread thread = new TransactionTest.TestThread();
+        //thread.start();
+        //thread.sleep(3000);
         //Timeout to allow the FXGL application to initialize its services prior to running test
+
+        TowerDefense.setDifficulty(GameDifficulty.EASY);
+        TowerDefense.setMoney(500);
 
         assertEquals(TowerDefense.getDifficulty(), GameDifficulty.EASY);
 
