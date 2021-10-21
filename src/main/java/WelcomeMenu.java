@@ -19,7 +19,7 @@ public class WelcomeMenu extends FXGLMenu {
 
         Text introText = new Text("Team 83's Tower Defense Game");
         WelcomeMenuButton btnStart = new WelcomeMenuButton("Start",
-                () -> getController().gotoGameMenu());
+            () -> getController().gotoGameMenu());
         WelcomeMenuButton btnExit = new WelcomeMenuButton("Exit", () -> fireExit());
 
         VBox welcome = new VBox(15,
