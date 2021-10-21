@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="70" tileheight="70" infinite="0" nextlayerid="3" nextobjectid="19">
+ <editorsettings>
+  <export target="Map2.json" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156" columns="12">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <tileset firstgid="157" name="towerDefense_tilesheet" tilewidth="70" tileheight="70" tilecount="231" columns="21">
+  <image source="../Downloads/tower-defense-top-down/Tilesheet/towerDefense_tilesheet.png" width="1472" height="832"/>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="15" height="10">
+  <data encoding="csv">
+347,26,2,26,347,347,347,347,347,347,347,347,347,67,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,347,347,347,347,347,347,347,347,347,347,128,347,
+347,347,128,128,128,128,128,128,128,128,128,128,128,128,347,
+347,347,347,347,347,347,347,347,347,347,347,347,347,347,347
+</data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="5" type="path" x="139.998" y="69.9672" width="69.9036" height="560.904"/>
+  <object id="6" type="path" x="210.159" y="560.042" width="769.595" height="70.5406"/>
+  <object id="7" type="path" x="910.039" y="70.0738" width="69.8824" height="490.316"/>
+  <object id="10" x="-46.6448" y="191.244"/>
+  <object id="14" x="-55.9738" y="309.022"/>
+  <object id="15" x="307.856" y="741.652"/>
+  <object id="18" type="monument" x="910" y="-1" width="69.8182" height="71"/>
+ </objectgroup>
+</map>

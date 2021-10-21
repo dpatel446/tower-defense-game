@@ -38,7 +38,7 @@ public class TowerCostAndTypeTest {
         assertEquals(ice.getDescription(), s);
 
         Tower earth = new EarthTower();
-        s = "A Tower made of earth, shooting rocks at any enemy in sight"
+        s = "A Tower made of earth, shooting rocks at any enemy in sight";
         assertEquals(earth.getDescription(), s);
     }
 
