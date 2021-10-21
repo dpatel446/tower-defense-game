@@ -4,9 +4,7 @@ import javafx.beans.binding.StringBinding;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -19,9 +17,10 @@ import static com.almasb.fxgl.dsl.FXGLForKtKt.getUIFactoryService;
 
 public class ConfigScreen extends FXGLMenu {
     private String baseTextField = "Enter your name here";
-    private Button buttonEasy;
-    private Button buttonMedium;
-    private Button buttonHard;
+
+    private RadioButton buttonEasy;
+    private RadioButton buttonMedium;
+    private RadioButton buttonHard;
 
     public ConfigScreen() {
         super(MenuType.GAME_MENU);
@@ -38,42 +37,40 @@ public class ConfigScreen extends FXGLMenu {
         );
         renamePanel.getChildren().addAll(renameInput, btnEnter);
 
-        Button btnEasy = new Button("Easy");
+        RadioButton btnEasy = new RadioButton("Easy");
 
         btnEasy.setOnAction(
             (ActionEvent e) -> {
                 TowerDefense.setDifficulty(GameDifficulty.EASY);
             }
         );
-        buttonEasy = btnEasy;
 
-        Button btnMedium = new Button("Medium");
+        RadioButton btnMedium = new RadioButton("Medium");
 
         btnMedium.setOnAction(
             (ActionEvent e) -> {
                 TowerDefense.setDifficulty(GameDifficulty.MEDIUM);
             }
         );
-        buttonMedium = btnMedium;
 
-        Button btnHard = new Button("Hard");
+        RadioButton btnHard = new RadioButton("Hard");
 
         btnHard.setOnAction(
             (ActionEvent e) -> {
                 TowerDefense.setDifficulty(GameDifficulty.HARD);
             }
         );
-        buttonHard = btnHard;
+
+        ToggleGroup difficultyGroup = new ToggleGroup();
+        btnEasy.setToggleGroup(difficultyGroup);
+        btnMedium.setToggleGroup(difficultyGroup);
+        btnHard.setToggleGroup(difficultyGroup);
 
         Label lblPlayer = new Label("Player Name: ");
         Label lblBoundPlayer = new Label();
-        //Label lblDifficulty = new Label("Difficulty Selected: ");
-        //Label lblBoundDifficulty = new Label();
         HBox playerBox = new HBox(lblPlayer, lblBoundPlayer);
-        //HBox difficultyBox = new HBox(lblDifficulty, lblBoundDifficulty);
 
         lblBoundPlayer.textProperty().bind(TowerDefense.getName());
-        //lblBoundDifficulty.textProperty().bind(TowerDefense.difficulty);
 
         ConfigScreenButton btnProceed = new ConfigScreenButton("Proceed");
 
@@ -133,15 +130,15 @@ public class ConfigScreen extends FXGLMenu {
         return new Rectangle();
     }
 
-    public Button getButtonEasy() {
+    public RadioButton getButtonEasy() {
         return buttonEasy;
     }
 
-    public Button getButtonMedium() {
+    public RadioButton getButtonMedium() {
         return buttonMedium;
     }
 
-    public Button getButtonHard() {
+    public RadioButton getButtonHard() {
         return buttonHard;
     }
 

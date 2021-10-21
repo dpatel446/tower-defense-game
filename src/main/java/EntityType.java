@@ -1,3 +1,3 @@
 public enum EntityType {
-    MONEY, SCREEN
+    MONEY, SCREEN, TOWER
 }

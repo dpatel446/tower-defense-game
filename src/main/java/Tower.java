@@ -8,7 +8,7 @@ public abstract class Tower {
     private GameDifficulty difficulty;
 
     protected Tower() {
-        this("a","b",TowerDefense.getDifficulty());
+        this("a", "b", TowerDefense.getDifficulty());
     }
 
     protected Tower(String name, String type, GameDifficulty difficulty) {
@@ -16,29 +16,27 @@ public abstract class Tower {
         this.type = type;
         if (difficulty == GameDifficulty.EASY) {
             cost = 10;
-        }
-        else if (difficulty == GameDifficulty.MEDIUM) {
+        } else if (difficulty == GameDifficulty.MEDIUM) {
             cost = 20;
-        }
-        else {
+        } else {
             cost = 30;
         }
     }
 
     public String getName() {
-    	return this.name;
+        return this.name;
     }
 
     public int getCost() {
-    	return this.cost;
+        return this.cost;
     }
 
     public String getType() {
-    	return this.type;
+        return this.type;
     }
     
     public int getHealth() {
-    	return this.health;
+        return this.health;
     }
     
     public abstract String getDescription();
