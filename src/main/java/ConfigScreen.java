@@ -38,6 +38,7 @@ public class ConfigScreen extends FXGLMenu {
         renamePanel.getChildren().addAll(renameInput, btnEnter);
 
         RadioButton btnEasy = new RadioButton("Easy");
+        buttonEasy = btnEasy;
 
         btnEasy.setOnAction(
             (ActionEvent e) -> {
@@ -46,6 +47,7 @@ public class ConfigScreen extends FXGLMenu {
         );
 
         RadioButton btnMedium = new RadioButton("Medium");
+        buttonMedium = btnMedium;
 
         btnMedium.setOnAction(
             (ActionEvent e) -> {
@@ -54,6 +56,7 @@ public class ConfigScreen extends FXGLMenu {
         );
 
         RadioButton btnHard = new RadioButton("Hard");
+        buttonHard = btnHard;
 
         btnHard.setOnAction(
             (ActionEvent e) -> {
