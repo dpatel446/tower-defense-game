@@ -28,7 +28,6 @@ public class TowerPlacementTest {
     }
     @Test
     public void testOnmap() {
-        Rectangle2D forbiddenPath2 = new Rectangle2D(210.0, 520.0, 770.0, 130.0);
         Rectangle2D forbiddenPath3 = new Rectangle2D(870.0, 0.0, 130.0, 560.0);
         boolean testing = true;
 
