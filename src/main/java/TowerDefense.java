@@ -236,8 +236,9 @@ public class TowerDefense extends GameApplication {
             }
         );
 
-        towerStorage.getChildren().addAll(storeText, iceTower, earthTower, fireTower);
-        towerStorage.getChildren().addAll(storageText);
+        towerStorage.getChildren().add(storeText);
+        towerStorage.getChildren().addAll(iceTower, earthTower, fireTower);
+        towerStorage.getChildren().add(storageText);
         towerStorage.getChildren().addAll(iceTowerStored, earthTowerStored, fireTowerStored);
 
         towerStorage.setAlignment(Pos.CENTER);
