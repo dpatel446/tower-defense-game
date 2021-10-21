@@ -26,6 +26,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 
@@ -51,6 +54,8 @@ public class TowerDefense extends GameApplication {
     private static Button testIceStored;
     private static Button testEarthStored;
     private static Button testFireStored;
+
+    private static ArrayList<Tower> towers = new ArrayList<Tower>();
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -145,6 +150,9 @@ public class TowerDefense extends GameApplication {
         Tower iceTowerObject = new IceTower();
         Tower earthTowerObject = new EarthTower();
         Tower fireTowerObject = new FireTower();
+        towers.add(iceTowerObject);
+        towers.add(earthTowerObject);
+        towers.add(fireTowerObject);
 
         //Money******************************************************************************//
         Text moneyDisplay = FXGL.getUIFactoryService().newText("", Color.BLACK, 22);
@@ -376,6 +384,10 @@ public class TowerDefense extends GameApplication {
 
     public static Button getTestFireStored() {
         return testFireStored;
+    }
+
+    public static ArrayList<Tower> getTowers() {
+        return towers;
     }
 
     public static void main(String[] args) {
