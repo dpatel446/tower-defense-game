@@ -28,6 +28,12 @@ public class TestIntegration {
         Assertions.assertEquals(TowerDefense.getDifficulty(), GameDifficulty.HARD);
         Assertions.assertEquals(app.getInitMoney(), 100);
         Assertions.assertEquals(app.getInitHealth().getWidth(), 50);
+
+        try {
+            thread.stop();
+        } catch (ThreadDeath | IllegalStateException e) {
+            System.out.println("Successfully killed thread.");
+        }
     }
 
     private static class TestThread extends Thread {
