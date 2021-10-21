@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 public class TowerPlacementTest {
     @Test
-    public void testOnpath() {
+    public void testOnMap() {
         Rectangle2D forbiddenPath1 = new Rectangle2D(100.0, 0.0, 130.0, 630.0);
         Rectangle2D forbiddenPath2 = new Rectangle2D(210.0, 520.0, 770.0, 130.0);
         Rectangle2D forbiddenPath3 = new Rectangle2D(870.0, 0.0, 130.0, 560.0);
@@ -20,7 +20,7 @@ public class TowerPlacementTest {
     }
 
     @Test
-    public void testOnmap() {
+    public void testOnPath() {
         Rectangle2D forbiddenPath1 = new Rectangle2D(100.0, 0.0, 130.0, 630.0);
         Rectangle2D forbiddenPath2 = new Rectangle2D(210.0, 520.0, 770.0, 130.0);
         Rectangle2D forbiddenPath3 = new Rectangle2D(870.0, 0.0, 130.0, 560.0);
@@ -35,6 +35,5 @@ public class TowerPlacementTest {
             testing = false;
         }
         Assertions.assertFalse(testing);
-
     }
 }
