@@ -3,6 +3,7 @@ import javafx.scene.paint.Color;
 public class IceTower extends Tower {
 
 	public IceTower() {
+		super("Ice Tower", "Ice", TowerDefense.getDifficulty());
 	}
 	
 	@Override

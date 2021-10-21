@@ -8,6 +8,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -125,43 +126,74 @@ public class TowerDefense extends GameApplication {
     @Override
     protected void initUI() {
         //Money******************************************************************************************//
-        Text money = FXGL.getUIFactoryService().newText("", Color.BLACK, 22);
-        Text moneyText = FXGL.getUIFactoryService().newText("Money: ", Color.BLACK, 22);
-        money.setTranslateX(getAppWidth() / 2 + 25);
-        money.setTranslateY(25);
+        Text moneyDisplay = FXGL.getUIFactoryService().newText("", Color.BLACK, 22);
+        Text moneyText = FXGL.getUIFactoryService().newText("Money: $", Color.BLACK, 22);
+        moneyDisplay.setTranslateX(getAppWidth() / 2 + 25);
+        moneyDisplay.setTranslateY(25);
 
         moneyText.setTranslateX(getAppWidth() / 2 - 75);
         moneyText.setTranslateY(25);
 
-        money.textProperty().bind(TowerDefense.money.asString());
+        moneyDisplay.textProperty().bind(TowerDefense.money.asString());
         setInitMoney();
         //***********************************************************************************************//
 
         //Store & Storage********************************************************************************//
         VBox towerStorage = new VBox();
 
+        Tower iceTowerObject = new IceTower();
+        Tower earthTowerObject = new EarthTower();
+        Tower fireTowerObject = new FireTower();
+
         Text storeText = FXGL.getUIFactoryService().newText("Store", Color.BLACK, 22);
-        Button earthTower = new Button();
-        Button fireTower = new Button();
-        Button iceTower = new Button();
+        Button iceTower = new Button("$" + iceTowerObject.getCost(), new Rectangle(20.0, 20.0, iceTowerObject.getColor()));
+        Button earthTower = new Button("$" + earthTowerObject.getCost(), new Rectangle(20.0, 20.0, earthTowerObject.getColor()));
+        Button fireTower = new Button("$" + fireTowerObject.getCost(), new Rectangle(20.0, 20.0, fireTowerObject.getColor()));
+
+        iceTower.setOnAction(
+            (ActionEvent e) -> {
+                if (transaction(iceTowerObject)) {
+                    iceTowerTokens.setValue(iceTowerTokens.intValue() + 1);
+                    TowerDefense.money.setValue(money.intValue() - iceTowerObject.getCost());
+                }
+            }
+        );
+
+        earthTower.setOnAction(
+            (ActionEvent e) -> {
+                if (transaction(earthTowerObject)) {
+                    earthTowerTokens.setValue(earthTowerTokens.intValue() + 1);
+                    TowerDefense.money.setValue(money.intValue() - earthTowerObject.getCost());
+                }
+            }
+        );
+
+        fireTower.setOnAction(
+            (ActionEvent e) -> {
+                if (transaction(fireTowerObject)) {
+                    fireTowerTokens.setValue(fireTowerTokens.intValue() + 1);
+                    TowerDefense.money.setValue(money.intValue() - fireTowerObject.getCost());
+                }
+            }
+        );
 
         Text storageText = FXGL.getUIFactoryService().newText("Storage", Color.BLACK, 22);
-        Button earthTowerStored = new Button();
-        Button fireTowerStored = new Button();
-        Button iceTowerStored = new Button();
+        Button iceTowerStored = new Button("", new Rectangle(20.0, 20.0, iceTowerObject.getColor()));
+        Button earthTowerStored = new Button("", new Rectangle(20.0, 20.0, earthTowerObject.getColor()));
+        Button fireTowerStored = new Button("", new Rectangle(20.0, 20.0, fireTowerObject.getColor()));
         earthTowerStored.textProperty().bind(earthTowerTokens.asString());
         fireTowerStored.textProperty().bind(fireTowerTokens.asString());
         iceTowerStored.textProperty().bind(iceTowerTokens.asString());
 
-        towerStorage.getChildren().addAll(storeText, earthTower, fireTower, iceTower, storageText, earthTowerStored, fireTowerStored, iceTowerStored);
+        towerStorage.getChildren().addAll(storeText, iceTower, earthTower, fireTower, storageText, iceTowerStored, earthTowerStored, fireTowerStored);
 
         towerStorage.setAlignment(Pos.CENTER);
         towerStorage.setBackground(new Background(new BackgroundFill(Color.GOLD, new CornerRadii(0), new Insets(5.0))));
-        towerStorage.setTranslateX(getAppWidth() / 2 - 75);
+        towerStorage.setTranslateX((getAppWidth() / 2) - 50);
         towerStorage.setTranslateY(50);
         //***********************************************************************************************//
 
-        getGameScene().addUINodes(money, moneyText, towerStorage);
+        getGameScene().addUINodes(moneyDisplay, moneyText, towerStorage);
 
     }
 
@@ -188,6 +220,10 @@ public class TowerDefense extends GameApplication {
 
     public static void setDifficulty(GameDifficulty difficulty) {
         TowerDefense.difficulty = difficulty;
+    }
+
+    public static void setMoney(int m) {
+        TowerDefense.money.setValue(m);
     }
 
     public static GameSettings getGameSettings() {

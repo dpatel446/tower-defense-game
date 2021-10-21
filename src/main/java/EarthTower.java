@@ -3,6 +3,7 @@ import javafx.scene.paint.Color;
 public class EarthTower extends Tower{
 
 	public EarthTower() {
+		super("Earth Tower", "Earth", TowerDefense.getDifficulty());
 	}
 
 	@Override

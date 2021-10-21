@@ -3,6 +3,7 @@ import javafx.scene.paint.Color;
 public class FireTower extends Tower {
 
 	public FireTower() {
+		super("Fire Tower", "Fire", TowerDefense.getDifficulty());
 	}
 	
 	@Override
