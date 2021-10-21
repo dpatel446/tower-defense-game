@@ -1,6 +1,6 @@
 import javafx.geometry.Rectangle2D;
 import org.junit.jupiter.api.Assertions;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
 
 public class TowerPlacementTest {
     @Test
@@ -20,7 +20,8 @@ public class TowerPlacementTest {
             testing = true;
         }
         Assertions.assertTrue(testing);
-        if (test2.getMaxY() < forbiddenPath2.getMaxY() && test2.getMaxY() > forbiddenPath2.getMinX()) {
+        if (test2.getMaxY() < forbiddenPath2.getMaxY()
+                && test2.getMaxY() > forbiddenPath2.getMinX()) {
             testing = true;
         }
         Assertions.assertTrue(testing);
