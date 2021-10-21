@@ -44,6 +44,7 @@ public class ConfigScreen extends FXGLMenu {
                 TowerDefense.setDifficulty(GameDifficulty.EASY);
             }
         );
+        buttonEasy = btnEasy;
 
         RadioButton btnMedium = new RadioButton("Medium");
 
@@ -53,6 +54,8 @@ public class ConfigScreen extends FXGLMenu {
             }
         );
 
+        buttonMedium = btnMedium;
+
         RadioButton btnHard = new RadioButton("Hard");
 
         btnHard.setOnAction(
@@ -60,6 +63,8 @@ public class ConfigScreen extends FXGLMenu {
                 TowerDefense.setDifficulty(GameDifficulty.HARD);
             }
         );
+
+        buttonHard = btnHard;
 
         ToggleGroup difficultyGroup = new ToggleGroup();
         btnEasy.setToggleGroup(difficultyGroup);
