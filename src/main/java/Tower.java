@@ -1,3 +1,5 @@
+import javafx.scene.paint.Color;
+
 public abstract class Tower {
     private int cost;
     private String name;
@@ -6,39 +8,39 @@ public abstract class Tower {
     private GameDifficulty difficulty;
 
     protected Tower() {
-        this("a","b",TowerDefense.getDifficulty());
+        this("a", "b", TowerDefense.getDifficulty());
     }
 
     protected Tower(String name, String type, GameDifficulty difficulty) {
         this.name = name;
         this.type = type;
         if (difficulty == GameDifficulty.EASY) {
-        	cost = 50;
-        }
-        else if (difficulty == GameDifficulty.MEDIUM) {
-        	cost = 100;
-        }
-        else {
-        	cost = 150;
+            cost = 10;
+        } else if (difficulty == GameDifficulty.MEDIUM) {
+            cost = 20;
+        } else {
+            cost = 30;
         }
     }
 
     public String getName() {
-    	return this.name;
+        return this.name;
     }
 
     public int getCost() {
-    	return this.cost;
+        return this.cost;
     }
 
     public String getType() {
-    	return this.type;
+        return this.type;
     }
     
     public int getHealth() {
-    	return this.health;
+        return this.health;
     }
     
     public abstract String getDescription();
+
+    public abstract Color getColor();
     
 }
