@@ -13,6 +13,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
+import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
@@ -25,7 +26,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
 
@@ -44,6 +51,9 @@ public class TowerDefense extends GameApplication {
     private static IntegerProperty fireTowerTokens = new SimpleIntegerProperty(0);
 
     private static Tower towerSelected = null;
+
+    private Point2D origin = new Point2D(175, 45);
+    private static List<Point2D> path = new ArrayList<>();
 
     private static Button testIceStore;
     private static Button testEarthStore;
@@ -85,6 +95,12 @@ public class TowerDefense extends GameApplication {
 
         Rectangle healthBar = getInitHealth();
 
+        path.addAll(Arrays.asList(
+            new Point2D(origin.getX(), origin.getY() + 550),
+            new Point2D(origin.getX() + 770, origin.getY() + 550),
+            new Point2D(origin.getX() + 770, origin.getY())
+        ));
+
         entityBuilder()
                 .at(900, 0)
                 .view("TechTower.jpg")
@@ -94,6 +110,15 @@ public class TowerDefense extends GameApplication {
                 .at(900, 100)
                 .view(healthBar)
                 .buildAndAttach();
+
+        getGameTimer().runAtInterval(
+                this::spawnEnemy,
+                Duration.seconds(1.5)
+        );
+    }
+
+    private void spawnEnemy() {
+        spawn("enemy", origin.getX(), origin.getY());
     }
 
     public Rectangle getInitHealth() {
@@ -341,6 +366,8 @@ public class TowerDefense extends GameApplication {
     public static GameSettings getGameSettings() {
         return gameSettings;
     }
+
+    public static List<Point2D> getPath() {return new ArrayList<>(path);}
 
     public static IntegerProperty getIceTowerTokens() {
         return iceTowerTokens;
