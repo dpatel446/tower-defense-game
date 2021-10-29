@@ -29,6 +29,8 @@ public class EnemyFunctionality extends Component {
 
             if (!gamePathing.isEmpty()) {
                 personalPathing = gamePathing.remove(0);
+            } else {
+                //POSSIBLE CODE LOCATION FOR ATTACKING FUNCTION
             }
         }
     }
