@@ -7,10 +7,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
@@ -42,6 +39,8 @@ public class TowerDefense extends GameApplication {
     private static StringProperty name = new SimpleStringProperty("");
     private static GameDifficulty difficulty = GameDifficulty.EASY;
     private static IntegerProperty money = new SimpleIntegerProperty(0);
+    private static IntegerProperty health = new SimpleIntegerProperty(0);
+    private static BooleanProperty isStarted = new SimpleBooleanProperty(false);
     private static GameSettings gameSettings;
 
     private static String baseTextField = "Enter your name here";
@@ -94,8 +93,11 @@ public class TowerDefense extends GameApplication {
         getGameWorld().addEntityFactory(TOWER_DEFENSE_FACTORY);
         getGameScene().setBackgroundRepeat("Map2.png");
         moneyBox(getAppWidth() / 2 - 100, 0);
+        setInitHealth();
 
         Rectangle healthBar = getInitHealth();
+
+        healthBar.widthProperty().bind(TowerDefense.health);
 
         path.addAll(Arrays.asList(
             new Point2D(origin.getX(), origin.getY() + 550),
@@ -112,11 +114,6 @@ public class TowerDefense extends GameApplication {
                 .at(900, 100)
                 .view(healthBar)
                 .buildAndAttach();
-
-        getGameTimer().runAtInterval(
-                this::spawnEnemy,
-                Duration.seconds(1.5)
-        );
     }
 
     private void spawnEnemy() {
@@ -153,9 +150,25 @@ public class TowerDefense extends GameApplication {
         }
     }
 
+    public void setInitHealth() {
+        if (difficulty == GameDifficulty.EASY) {
+            TowerDefense.health.setValue(100);
+        } else if (difficulty == GameDifficulty.MEDIUM) {
+            TowerDefense.health.setValue(75);
+        } else {
+            TowerDefense.health.setValue(50);
+        }
+    }
+
     public static IntegerProperty getMoney() {
         return TowerDefense.money;
     }
+
+    public static IntegerProperty getHealth() {
+        return TowerDefense.health;
+    }
+
+    public static void setIsStarted(boolean b) {TowerDefense.isStarted.setValue(b);}
 
     //Makes the transaction, returns true if it was a success and false if not enough money.
     public static boolean transaction(Tower t) {
@@ -281,7 +294,21 @@ public class TowerDefense extends GameApplication {
         towerStorage.setTranslateY(50);
         //***************************************************************************************//
 
-        getGameScene().addUINodes(moneyDisplay, moneyText, towerStorage);
+        Button startGame = new Button("Start Game");
+        startGame.setTranslateX((getAppWidth() / 2) - 50);
+        startGame.setTranslateY(300);
+        startGame.setOnAction(
+                (ActionEvent e) -> {
+                    if (!TowerDefense.isStarted.getValue().booleanValue()) {
+                        getGameTimer().runAtInterval(
+                                this::spawnEnemy,
+                                Duration.seconds(1.5)
+                        );
+                        setIsStarted(true);
+                    }
+                }
+        );
+        getGameScene().addUINodes(moneyDisplay, moneyText, towerStorage, startGame);
 
     }
 
@@ -367,6 +394,8 @@ public class TowerDefense extends GameApplication {
     public static void setMoney(int m) {
         TowerDefense.money.setValue(m);
     }
+
+    public static void setHealth(int m) { TowerDefense.health.setValue(m); }
 
     public static GameSettings getGameSettings() {
         return gameSettings;

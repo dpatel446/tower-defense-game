@@ -30,8 +30,13 @@ public class EnemyFunctionality extends Component {
             if (!gamePathing.isEmpty()) {
                 personalPathing = gamePathing.remove(0);
             } else {
+                //POSSIBLE CODE LOCATION FOR ATTACKING FUNCTION
                 entity.removeFromWorld();
-                //ATTACK FUNCTIONALITY HERE
+                if (TowerDefense.getHealth().intValue() > 0) {
+                    TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
+                } else {
+                    //Game Over Screen
+                }
             }
         }
     }
