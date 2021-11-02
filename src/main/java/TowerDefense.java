@@ -50,18 +50,127 @@ public class TowerDefense extends GameApplication {
     private static IntegerProperty fireTowerTokens = new SimpleIntegerProperty(0);
 
     private static Tower towerSelected = null;
-
-    private Point2D origin = new Point2D(175, 45);
     private static List<Point2D> path = new ArrayList<>();
-
     private static Button testIceStore;
     private static Button testEarthStore;
     private static Button testFireStore;
     private static Button testIceStored;
     private static Button testEarthStored;
     private static Button testFireStored;
-
     private static ArrayList<Tower> towers = new ArrayList<Tower>();
+    private Point2D origin = new Point2D(175, 45);
+
+    public static int getInitMoney() {
+        if (difficulty == GameDifficulty.EASY) {
+            return 500;
+        } else if (difficulty == GameDifficulty.MEDIUM) {
+            return 300;
+        } else {
+            return 100;
+        }
+    }
+
+    public static IntegerProperty getMoney() {
+        return TowerDefense.money;
+    }
+
+    public static void setMoney(int m) {
+        TowerDefense.money.setValue(m);
+    }
+
+    public static IntegerProperty getHealth() {
+        return TowerDefense.health;
+    }
+
+    public static void setHealth(int m) {
+        TowerDefense.health.setValue(m);
+    }
+
+    public static void setIsStarted(boolean b) {
+        TowerDefense.isStarted.setValue(b);
+    }
+
+    //Makes the transaction, returns true if it was a success and false if not enough money.
+    public static boolean transaction(Tower t) {
+        if (getMoney().intValue() >= t.getCost()) {
+            TowerDefense.money.setValue(getMoney().intValue() - t.getCost());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static StringProperty getName() {
+        return TowerDefense.name;
+    }
+
+    public static void setName(String name) {
+        TowerDefense.name.setValue(name);
+    }
+
+    public static void attackMounument() {
+        TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
+    }
+
+    public static GameDifficulty getDifficulty() {
+        return TowerDefense.difficulty;
+    }
+
+    public static void setDifficulty(GameDifficulty difficulty) {
+        TowerDefense.difficulty = difficulty;
+    }
+
+    public static GameSettings getGameSettings() {
+        return gameSettings;
+    }
+
+    public static List<Point2D> getPath() {
+        return new ArrayList<>(path);
+    }
+
+    public static IntegerProperty getIceTowerTokens() {
+        return iceTowerTokens;
+    }
+
+    public static IntegerProperty getEarthTowerTokens() {
+        return earthTowerTokens;
+    }
+
+    public static IntegerProperty getFireTowerTokens() {
+        return fireTowerTokens;
+    }
+
+    public static Button getTestIceStore() {
+        return testIceStore;
+    }
+
+    public static Button getTestEarthStore() {
+        return testEarthStore;
+    }
+
+    public static Button getTestFireStore() {
+        return testFireStore;
+    }
+
+    public static Button getTestIceStored() {
+        return testIceStored;
+    }
+
+    public static Button getTestEarthStored() {
+        return testEarthStored;
+    }
+
+    public static Button getTestFireStored() {
+        return testFireStored;
+    }
+
+    public static ArrayList<Tower> getTowers() {
+        return towers;
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     protected void initSettings(GameSettings gameSettings) {
@@ -100,9 +209,9 @@ public class TowerDefense extends GameApplication {
         healthBar.widthProperty().bind(TowerDefense.health);
 
         path.addAll(Arrays.asList(
-            new Point2D(origin.getX(), origin.getY() + 550),
-            new Point2D(origin.getX() + 770, origin.getY() + 550),
-            new Point2D(origin.getX() + 770, origin.getY())
+                new Point2D(origin.getX(), origin.getY() + 550),
+                new Point2D(origin.getX() + 770, origin.getY() + 550),
+                new Point2D(origin.getX() + 770, origin.getY())
         ));
 
         entityBuilder()
@@ -130,16 +239,6 @@ public class TowerDefense extends GameApplication {
         }
     }
 
-    public static int getInitMoney() {
-        if (difficulty == GameDifficulty.EASY) {
-            return 500;
-        } else if (difficulty == GameDifficulty.MEDIUM) {
-            return 300;
-        } else {
-            return 100;
-        }
-    }
-
     public void setInitMoney() {
         if (difficulty == GameDifficulty.EASY) {
             TowerDefense.money.setValue(500);
@@ -157,26 +256,6 @@ public class TowerDefense extends GameApplication {
             TowerDefense.health.setValue(75);
         } else {
             TowerDefense.health.setValue(50);
-        }
-    }
-
-    public static IntegerProperty getMoney() {
-        return TowerDefense.money;
-    }
-
-    public static IntegerProperty getHealth() {
-        return TowerDefense.health;
-    }
-
-    public static void setIsStarted(boolean b) {TowerDefense.isStarted.setValue(b);}
-
-    //Makes the transaction, returns true if it was a success and false if not enough money.
-    public static boolean transaction(Tower t) {
-        if (getMoney().intValue() >= t.getCost()) {
-            TowerDefense.money.setValue(getMoney().intValue() - t.getCost());
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -218,36 +297,36 @@ public class TowerDefense extends GameApplication {
         testFireStore = fireTower;
 
         iceTower.setOnAction(
-            (ActionEvent e) -> {
-                if (transaction(iceTowerObject)) {
-                    iceTowerTokens.setValue(iceTowerTokens.intValue() + 1);
-                    TowerDefense.money.setValue(money.intValue());
+                (ActionEvent e) -> {
+                    if (transaction(iceTowerObject)) {
+                        iceTowerTokens.setValue(iceTowerTokens.intValue() + 1);
+                        TowerDefense.money.setValue(money.intValue());
+                    }
                 }
-            }
         );
 
         String iceTHover = iceTowerObject.getName() + ": " + iceTowerObject.getDescription();
         iceTower.setTooltip(new Tooltip(iceTHover));
 
         earthTower.setOnAction(
-            (ActionEvent e) -> {
-                if (transaction(earthTowerObject)) {
-                    earthTowerTokens.setValue(earthTowerTokens.intValue() + 1);
-                    TowerDefense.money.setValue(money.intValue());
+                (ActionEvent e) -> {
+                    if (transaction(earthTowerObject)) {
+                        earthTowerTokens.setValue(earthTowerTokens.intValue() + 1);
+                        TowerDefense.money.setValue(money.intValue());
+                    }
                 }
-            }
         );
 
         String earthTHover = earthTowerObject.getName() + ": " + earthTowerObject.getDescription();
         earthTower.setTooltip(new Tooltip(earthTHover));
 
         fireTower.setOnAction(
-            (ActionEvent e) -> {
-                if (transaction(fireTowerObject)) {
-                    fireTowerTokens.setValue(fireTowerTokens.intValue() + 1);
-                    TowerDefense.money.setValue(money.intValue());
+                (ActionEvent e) -> {
+                    if (transaction(fireTowerObject)) {
+                        fireTowerTokens.setValue(fireTowerTokens.intValue() + 1);
+                        TowerDefense.money.setValue(money.intValue());
+                    }
                 }
-            }
         );
 
         String fireTHover = fireTowerObject.getName() + ": " + fireTowerObject.getDescription();
@@ -262,21 +341,21 @@ public class TowerDefense extends GameApplication {
         fireTowerStored.textProperty().bind(fireTowerTokens.asString());
 
         iceTowerStored.setOnAction(
-            (ActionEvent e) -> {
-                towerSelected = iceTowerObject;
-            }
+                (ActionEvent e) -> {
+                    towerSelected = iceTowerObject;
+                }
         );
 
         earthTowerStored.setOnAction(
-            (ActionEvent e) -> {
-                towerSelected = earthTowerObject;
-            }
+                (ActionEvent e) -> {
+                    towerSelected = earthTowerObject;
+                }
         );
 
         fireTowerStored.setOnAction(
-            (ActionEvent e) -> {
-                towerSelected = fireTowerObject;
-            }
+                (ActionEvent e) -> {
+                    towerSelected = fireTowerObject;
+                }
         );
 
         towerStorage.getChildren().add(storeText);
@@ -337,7 +416,7 @@ public class TowerDefense extends GameApplication {
     private void towerSpawner() {
         if (towerSelected != null) {
             if ((towerSelected instanceof IceTower)
-                && (iceTowerTokens.getValue() > 0)) {
+                    && (iceTowerTokens.getValue() > 0)) {
                 Tower tempIceTower = new IceTower();
                 spawn("ice tower",
                         new SpawnData(getInput().getMouseXWorld(), getInput().getMouseYWorld())
@@ -345,7 +424,7 @@ public class TowerDefense extends GameApplication {
                 );
                 iceTowerTokens.setValue(iceTowerTokens.getValue() - 1);
             } else if ((towerSelected instanceof EarthTower)
-                && (earthTowerTokens.getValue() > 0)) {
+                    && (earthTowerTokens.getValue() > 0)) {
                 Tower tempEarthTower = new EarthTower();
                 spawn("earth tower",
                         new SpawnData(getInput().getMouseXWorld(), getInput().getMouseYWorld())
@@ -353,7 +432,7 @@ public class TowerDefense extends GameApplication {
                 );
                 earthTowerTokens.setValue(earthTowerTokens.getValue() - 1);
             } else if ((towerSelected instanceof FireTower)
-                && (fireTowerTokens.getValue() > 0)) {
+                    && (fireTowerTokens.getValue() > 0)) {
                 Tower tempFireTower = new FireTower();
                 spawn("fire tower",
                         new SpawnData(getInput().getMouseXWorld(), getInput().getMouseYWorld())
@@ -373,77 +452,5 @@ public class TowerDefense extends GameApplication {
                 .type(EntityType.MONEY)
                 .viewWithBBox(new Rectangle(200, 50, Color.GOLD))
                 .buildAndAttach();
-    }
-
-    public static StringProperty getName() {
-        return TowerDefense.name;
-    }
-
-    public static void setName(String name) {
-        TowerDefense.name.setValue(name);
-    }
-
-    public static GameDifficulty getDifficulty() {
-        return TowerDefense.difficulty;
-    }
-
-    public static void setDifficulty(GameDifficulty difficulty) {
-        TowerDefense.difficulty = difficulty;
-    }
-
-    public static void setMoney(int m) {
-        TowerDefense.money.setValue(m);
-    }
-
-    public static void setHealth(int m) { TowerDefense.health.setValue(m); }
-
-    public static GameSettings getGameSettings() {
-        return gameSettings;
-    }
-
-    public static List<Point2D> getPath() {return new ArrayList<>(path);}
-
-    public static IntegerProperty getIceTowerTokens() {
-        return iceTowerTokens;
-    }
-
-    public static IntegerProperty getEarthTowerTokens() {
-        return earthTowerTokens;
-    }
-
-    public static IntegerProperty getFireTowerTokens() {
-        return fireTowerTokens;
-    }
-
-    public static Button getTestIceStore() {
-        return testIceStore;
-    }
-
-    public static Button getTestEarthStore() {
-        return testEarthStore;
-    }
-
-    public static Button getTestFireStore() {
-        return testFireStore;
-    }
-
-    public static Button getTestIceStored() {
-        return testIceStored;
-    }
-
-    public static Button getTestEarthStored() {
-        return testEarthStored;
-    }
-
-    public static Button getTestFireStored() {
-        return testFireStored;
-    }
-
-    public static ArrayList<Tower> getTowers() {
-        return towers;
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

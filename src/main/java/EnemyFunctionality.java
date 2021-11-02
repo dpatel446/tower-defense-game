@@ -33,7 +33,7 @@ public class EnemyFunctionality extends Component {
                 //POSSIBLE CODE LOCATION FOR ATTACKING FUNCTION
                 entity.removeFromWorld();
                 if (TowerDefense.getHealth().intValue() > 0) {
-                    TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
+                    TowerDefense.attackMounument();
                 } else {
                     //Game Over Screen
                 }
