@@ -207,6 +207,8 @@ public class TowerDefense extends GameApplication {
         Rectangle healthBar = getInitHealth();
 
         healthBar.widthProperty().bind(TowerDefense.health);
+        
+        path = new ArrayList<Point2D>();
 
         path.addAll(Arrays.asList(
                 new Point2D(origin.getX(), origin.getY() + 550),
