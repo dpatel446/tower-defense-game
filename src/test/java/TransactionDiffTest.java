@@ -7,9 +7,9 @@ public class TransactionDiffTest {
 
     @Test
     public void testDiffTransaction() throws InterruptedException {
-        TransactionDiffTest.TestThread thread = new TransactionDiffTest.TestThread();
-        thread.start();
-        thread.sleep(3000);
+        //TransactionDiffTest.TestThread thread = new TransactionDiffTest.TestThread();
+        //thread.start();
+        //thread.sleep(3000);
         //Timeout to allow the FXGL application to initialize its services prior to running test
 
         TowerDefense.setDifficulty(GameDifficulty.MEDIUM);

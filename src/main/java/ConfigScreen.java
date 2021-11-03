@@ -38,15 +38,16 @@ public class ConfigScreen extends FXGLMenu {
         renamePanel.getChildren().addAll(renameInput, btnEnter);
 
         RadioButton btnEasy = new RadioButton("Easy");
+        buttonEasy = btnEasy;
 
         btnEasy.setOnAction(
             (ActionEvent e) -> {
                 TowerDefense.setDifficulty(GameDifficulty.EASY);
             }
         );
-        buttonEasy = btnEasy;
 
         RadioButton btnMedium = new RadioButton("Medium");
+        buttonMedium = btnMedium;
 
         btnMedium.setOnAction(
             (ActionEvent e) -> {
@@ -54,17 +55,14 @@ public class ConfigScreen extends FXGLMenu {
             }
         );
 
-        buttonMedium = btnMedium;
-
         RadioButton btnHard = new RadioButton("Hard");
+        buttonHard = btnHard;
 
         btnHard.setOnAction(
             (ActionEvent e) -> {
                 TowerDefense.setDifficulty(GameDifficulty.HARD);
             }
         );
-
-        buttonHard = btnHard;
 
         ToggleGroup difficultyGroup = new ToggleGroup();
         btnEasy.setToggleGroup(difficultyGroup);

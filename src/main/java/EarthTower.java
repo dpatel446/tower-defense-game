@@ -13,6 +13,6 @@ public class EarthTower extends Tower {
 
     @Override
     public Color getColor() {
-        return Color.BROWN;
+        return Color.BLACK;
     }
 }
