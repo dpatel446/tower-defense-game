@@ -78,16 +78,20 @@ public class TowerDefense extends GameApplication {
         TowerDefense.money.setValue(m);
     }
 
+    public static boolean getIsStarted() {
+        return TowerDefense.isStarted.getValue().booleanValue();
+    }
+
+    public static void setIsStarted(boolean b) {
+        TowerDefense.isStarted.setValue(b);
+    }
+
     public static IntegerProperty getHealth() {
         return TowerDefense.health;
     }
 
     public static void setHealth(int m) {
         TowerDefense.health.setValue(m);
-    }
-
-    public static void setIsStarted(boolean b) {
-        TowerDefense.isStarted.setValue(b);
     }
 
     //Makes the transaction, returns true if it was a success and false if not enough money.
@@ -106,10 +110,6 @@ public class TowerDefense extends GameApplication {
 
     public static void setName(String name) {
         TowerDefense.name.setValue(name);
-    }
-
-    public static void attackMounument() {
-        TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
     }
 
     public static GameDifficulty getDifficulty() {
@@ -172,6 +172,10 @@ public class TowerDefense extends GameApplication {
         launch(args);
     }
 
+    public static void attackMonument() {
+        TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
+    }
+
     @Override
     protected void initSettings(GameSettings gameSettings) {
         TowerDefense.gameSettings = gameSettings;
@@ -207,7 +211,7 @@ public class TowerDefense extends GameApplication {
         Rectangle healthBar = getInitHealth();
 
         healthBar.widthProperty().bind(TowerDefense.health);
-        
+
         path = new ArrayList<Point2D>();
 
         path.addAll(Arrays.asList(
@@ -299,36 +303,36 @@ public class TowerDefense extends GameApplication {
         testFireStore = fireTower;
 
         iceTower.setOnAction(
-                (ActionEvent e) -> {
-                    if (transaction(iceTowerObject)) {
-                        iceTowerTokens.setValue(iceTowerTokens.intValue() + 1);
-                        TowerDefense.money.setValue(money.intValue());
-                    }
+            (ActionEvent e) -> {
+                if (transaction(iceTowerObject)) {
+                    iceTowerTokens.setValue(iceTowerTokens.intValue() + 1);
+                    TowerDefense.money.setValue(money.intValue());
                 }
+            }
         );
 
         String iceTHover = iceTowerObject.getName() + ": " + iceTowerObject.getDescription();
         iceTower.setTooltip(new Tooltip(iceTHover));
 
         earthTower.setOnAction(
-                (ActionEvent e) -> {
-                    if (transaction(earthTowerObject)) {
-                        earthTowerTokens.setValue(earthTowerTokens.intValue() + 1);
-                        TowerDefense.money.setValue(money.intValue());
-                    }
+            (ActionEvent e) -> {
+                if (transaction(earthTowerObject)) {
+                    earthTowerTokens.setValue(earthTowerTokens.intValue() + 1);
+                    TowerDefense.money.setValue(money.intValue());
                 }
+            }
         );
 
         String earthTHover = earthTowerObject.getName() + ": " + earthTowerObject.getDescription();
         earthTower.setTooltip(new Tooltip(earthTHover));
 
         fireTower.setOnAction(
-                (ActionEvent e) -> {
-                    if (transaction(fireTowerObject)) {
-                        fireTowerTokens.setValue(fireTowerTokens.intValue() + 1);
-                        TowerDefense.money.setValue(money.intValue());
-                    }
+            (ActionEvent e) -> {
+                if (transaction(fireTowerObject)) {
+                    fireTowerTokens.setValue(fireTowerTokens.intValue() + 1);
+                    TowerDefense.money.setValue(money.intValue());
                 }
+            }
         );
 
         String fireTHover = fireTowerObject.getName() + ": " + fireTowerObject.getDescription();
@@ -343,21 +347,21 @@ public class TowerDefense extends GameApplication {
         fireTowerStored.textProperty().bind(fireTowerTokens.asString());
 
         iceTowerStored.setOnAction(
-                (ActionEvent e) -> {
-                    towerSelected = iceTowerObject;
-                }
+            (ActionEvent e) -> {
+                towerSelected = iceTowerObject;
+            }
         );
 
         earthTowerStored.setOnAction(
-                (ActionEvent e) -> {
-                    towerSelected = earthTowerObject;
-                }
+            (ActionEvent e) -> {
+                towerSelected = earthTowerObject;
+            }
         );
 
         fireTowerStored.setOnAction(
-                (ActionEvent e) -> {
-                    towerSelected = fireTowerObject;
-                }
+            (ActionEvent e) -> {
+                towerSelected = fireTowerObject;
+            }
         );
 
         towerStorage.getChildren().add(storeText);
@@ -379,18 +383,22 @@ public class TowerDefense extends GameApplication {
         startGame.setTranslateX((getAppWidth() / 2) - 50);
         startGame.setTranslateY(300);
         startGame.setOnAction(
-                (ActionEvent e) -> {
-                    if (!TowerDefense.isStarted.getValue().booleanValue()) {
-                        getGameTimer().runAtInterval(
-                                this::spawnEnemy,
-                                Duration.seconds(1.5)
-                        );
-                        setIsStarted(true);
-                    }
+            (ActionEvent e) -> {
+                if (!TowerDefense.isStarted.getValue().booleanValue()) {
+                    startCombat();
                 }
+            }
         );
         getGameScene().addUINodes(moneyDisplay, moneyText, towerStorage, startGame);
 
+    }
+
+    public void startCombat() {
+        getGameTimer().runAtInterval(
+                this::spawnEnemy,
+                Duration.seconds(1.5)
+        );
+        setIsStarted(true);
     }
 
     @Override

@@ -1,7 +1,9 @@
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
+
 import java.util.List;
 import java.util.function.Consumer;
+
 import static com.almasb.fxgl.dsl.FXGL.showConfirm;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
@@ -35,7 +37,7 @@ public class EnemyFunctionality extends Component {
                 entity.removeFromWorld();
                 gamePathing.removeAll(gamePathing);
                 if (TowerDefense.getHealth().intValue() > 0) {
-                    TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
+                    TowerDefense.attackMonument();
                 } else {
                     Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
                     showConfirm("Restart?", consumer1);
