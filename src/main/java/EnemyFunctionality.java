@@ -1,8 +1,9 @@
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
-
 import java.util.List;
-
+import java.util.function.Consumer;
+import static com.almasb.fxgl.dsl.FXGL.showConfirm;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
 public class EnemyFunctionality extends Component {
     private List<Point2D> gamePathing;
@@ -32,11 +33,25 @@ public class EnemyFunctionality extends Component {
             } else {
                 //POSSIBLE CODE LOCATION FOR ATTACKING FUNCTION
                 entity.removeFromWorld();
+                gamePathing.removeAll(gamePathing);
                 if (TowerDefense.getHealth().intValue() > 0) {
-                    TowerDefense.attackMounument();
+                    TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
                 } else {
-                    //Game Over Screen
+                    Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
+                    showConfirm("Restart?", consumer1);
                 }
+            }
+        }
+    }
+
+    private static class ConsumerInterfaceExample {
+        static void handleInput(boolean input) {
+            if (input) {
+                TowerDefense.setIsStarted(false);
+                //clear waypoints list of enemies
+                getGameController().gotoMainMenu();
+            } else {
+                getGameController().exit();
             }
         }
     }
