@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class TestIntegration {
+public class DifficultyButtonTest {
 
     private static TowerDefense app = new TowerDefense();
 

@@ -35,14 +35,19 @@ public class EnemyFunctionality extends Component {
             } else {
                 entity.removeFromWorld();
                 gamePathing.removeAll(gamePathing);
-                if (TowerDefense.getHealth().intValue() > 0) {
+                if (!isDead()) {
                     TowerDefense.attackMonument();
-                } else {
+                }
+                if (isDead()) {
                     Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
                     showConfirm("Restart?", consumer1);
                 }
             }
         }
+    }
+
+    public boolean isDead() {
+        return TowerDefense.getHealth().intValue() <= 0;
     }
 
     private static class ConsumerInterfaceExample {
