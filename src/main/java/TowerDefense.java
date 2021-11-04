@@ -220,6 +220,10 @@ public class TowerDefense extends GameApplication {
                 new Point2D(origin.getX() + 770, origin.getY())
         ));
 
+        iceTowerTokens.setValue(0);
+        earthTowerTokens.setValue(0);
+        fireTowerTokens.setValue(0);
+
         entityBuilder()
                 .at(900, 0)
                 .view("TechTower.jpg")
