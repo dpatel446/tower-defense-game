@@ -23,5 +23,6 @@ public class TestSpawnandExit {
         TowerDefense.setIsStarted(true);
         Assertions.assertEquals(enemy, origin);
         Assertions.assertTrue(TowerDefense.getIsStarted());
+        TowerDefense.setIsStarted(false);
     }
 }
