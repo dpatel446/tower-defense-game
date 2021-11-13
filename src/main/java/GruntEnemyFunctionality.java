@@ -1,6 +1,7 @@
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -35,10 +36,10 @@ public class GruntEnemyFunctionality extends Component {
             } else {
                 entity.removeFromWorld();
                 gamePathing.removeAll(gamePathing);
-                if (!isDead()) {
+                if (!towerDead()) {
                     TowerDefense.attackMonument(2);
                 }
-                if (isDead()) {
+                if (towerDead()) {
                     Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
                     showConfirm("Restart?", consumer1);
                 }
@@ -46,7 +47,7 @@ public class GruntEnemyFunctionality extends Component {
         }
     }
 
-    public boolean isDead() {
+    public boolean towerDead() {
         return TowerDefense.getHealth().intValue() <= 0;
     }
 
@@ -54,6 +55,10 @@ public class GruntEnemyFunctionality extends Component {
         static void handleInput(boolean input) {
             if (input) {
                 TowerDefense.setIsStarted(false);
+                for (Tower t : TowerDefense.getTowers()) {
+                    t.setDelay(0L);
+                }
+                TowerDefense.setTowers(new ArrayList<Tower>());
                 //clear waypoints list of enemies
                 getGameController().gotoMainMenu();
             } else {

@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
+import com.almasb.fxgl.time.Timer;
 import javafx.beans.property.*;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -21,6 +22,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -58,8 +61,12 @@ public class TowerDefense extends GameApplication {
     private static Button testIceStored;
     private static Button testEarthStored;
     private static Button testFireStored;
-    private static ArrayList<Tower> towers = new ArrayList<Tower>();
+    private static ArrayList<Tower> towerType = new ArrayList<>();
     private Point2D origin = new Point2D(175, 45);
+    private static ArrayList<Tower> towers = new ArrayList<>();
+    private static ArrayList<Entity> enemies = new ArrayList<>();
+
+    public static Timer gameTimer;
 
     public static int getInitMoney() {
         if (difficulty == GameDifficulty.EASY) {
@@ -165,8 +172,8 @@ public class TowerDefense extends GameApplication {
         return testFireStored;
     }
 
-    public static ArrayList<Tower> getTowers() {
-        return towers;
+    public static ArrayList<Tower> getTowersType() {
+        return towerType;
     }
 
     public static void main(String[] args) {
@@ -208,6 +215,7 @@ public class TowerDefense extends GameApplication {
         getGameScene().setBackgroundRepeat("Map2.png");
         moneyBox(getAppWidth() / 2 - 100, 0);
         setInitHealth();
+        gameTimer = getGameTimer();
 
         Rectangle healthBar = getInitHealth();
 
@@ -239,15 +247,22 @@ public class TowerDefense extends GameApplication {
     private void spawnEnemy() {
         Random rand = new Random();
         int enemyTicket = rand.nextInt(3);
+        Entity enemy = null;
         switch (enemyTicket) {
             case 0:
-                spawn("grunt enemy", origin.getX(), origin.getY());
+                enemy = spawn("grunt enemy", origin.getX(), origin.getY());
+                enemy.setProperty("health", 5);
+                enemies.add(enemy);
                 break;
             case 1:
-                spawn("brute enemy", origin.getX(), origin.getY());
+                enemy = spawn("brute enemy", origin.getX(), origin.getY());
+                enemy.setProperty("health", 10);
+                enemies.add(enemy);
                 break;
             case 2:
-                spawn("tactical enemy", origin.getX(), origin.getY());
+                enemy = spawn("tactical enemy", origin.getX(), origin.getY());
+                enemy.setProperty("health", 8);
+                enemies.add(enemy);
                 break;
         }
     }
@@ -287,9 +302,9 @@ public class TowerDefense extends GameApplication {
         Tower iceTowerObject = new IceTower();
         Tower earthTowerObject = new EarthTower();
         Tower fireTowerObject = new FireTower();
-        towers.add(iceTowerObject);
-        towers.add(earthTowerObject);
-        towers.add(fireTowerObject);
+        towerType.add(iceTowerObject);
+        towerType.add(earthTowerObject);
+        towerType.add(fireTowerObject);
 
         //Money******************************************************************************//
         Text moneyDisplay = FXGL.getUIFactoryService().newText("", Color.BLACK, 22);
@@ -445,31 +460,89 @@ public class TowerDefense extends GameApplication {
             if ((towerSelected instanceof IceTower)
                     && (iceTowerTokens.getValue() > 0)) {
                 Tower tempIceTower = new IceTower();
+                double x = getInput().getMouseXWorld();
+                double y = getInput().getMouseYWorld();
                 spawn("ice tower",
-                        new SpawnData(getInput().getMouseXWorld(), getInput().getMouseYWorld())
+                        new SpawnData(x, y)
                                 .put("color", tempIceTower.getColor())
                 );
+                tempIceTower.setLocation(x-20, y-20);
+                tempIceTower.setDelay(1000); //figure out delay
+                tempIceTower.setDamage(1); //figure out damage
+                tempIceTower.setRadius(150); //figure out radius
+                //Circle circle = new Circle(tempIceTower.getRadius(),Color.CYAN);
+                //circle.setCenterX(tempIceTower.getLocation().getX());
+                //circle.setCenterY(tempIceTower.getLocation().getY());
+                //getGameScene().getContentRoot().getChildren().add(circle);
+                getGameTimer().runAtInterval(
+                        tempIceTower::attack,
+                        Duration.millis(tempIceTower.getDelay())
+                );
+                towers.add(tempIceTower);
                 iceTowerTokens.setValue(iceTowerTokens.getValue() - 1);
             } else if ((towerSelected instanceof EarthTower)
                     && (earthTowerTokens.getValue() > 0)) {
                 Tower tempEarthTower = new EarthTower();
+                double x = getInput().getMouseXWorld();
+                double y = getInput().getMouseYWorld();
                 spawn("earth tower",
-                        new SpawnData(getInput().getMouseXWorld(), getInput().getMouseYWorld())
+                        new SpawnData(x, y)
                                 .put("color", tempEarthTower.getColor())
                 );
+                tempEarthTower.setLocation(x, y);
+                tempEarthTower.setLocation(x-20, y-20);
+                tempEarthTower.setDelay(2000); //figure out delay
+                tempEarthTower.setDamage(2); //figure out damage
+                tempEarthTower.setRadius(200); //figure out radius
+                //Circle circle = new Circle(tempEarthTower.getRadius(),Color.BLACK);
+                //circle.setCenterX(tempEarthTower.getLocation().getX());
+                //circle.setCenterY(tempEarthTower.getLocation().getY());
+                //getGameScene().getContentRoot().getChildren().add(circle);
+                getGameTimer().runAtInterval(
+                        tempEarthTower::attack,
+                        Duration.millis(tempEarthTower.getDelay())
+                );
+                towers.add(tempEarthTower);
                 earthTowerTokens.setValue(earthTowerTokens.getValue() - 1);
             } else if ((towerSelected instanceof FireTower)
                     && (fireTowerTokens.getValue() > 0)) {
                 Tower tempFireTower = new FireTower();
+                double x = getInput().getMouseXWorld();
+                double y = getInput().getMouseYWorld();
                 spawn("fire tower",
-                        new SpawnData(getInput().getMouseXWorld(), getInput().getMouseYWorld())
+                        new SpawnData(x, y)
                                 .put("color", tempFireTower.getColor())
                 );
+                tempFireTower.setLocation(x-20, y-20);
+                tempFireTower.setDelay(2000); //figure out delay
+                tempFireTower.setDamage(3); //figure out damage
+                tempFireTower.setRadius(150); //figure out radius
+                //Circle circle = new Circle(tempFireTower.getRadius(),Color.RED);
+                //circle.setCenterX(tempFireTower.getLocation().getX());
+                //circle.setCenterY(tempFireTower.getLocation().getY());
+                //getGameScene().getContentRoot().getChildren().add(circle);
+                getGameTimer().runAtInterval(
+                        tempFireTower::attack,
+                        Duration.millis(tempFireTower.getDelay())
+                );
+                towers.add(tempFireTower);
                 fireTowerTokens.setValue(fireTowerTokens.getValue() - 1);
             } else {
                 return;
             }
         }
+    }
+
+    public static ArrayList<Tower> getTowers() {
+        return towers;
+    }
+
+    public static ArrayList<Entity> getEnemies() {
+        return enemies;
+    }
+
+    public static void setTowers(ArrayList<Tower> towers) {
+        TowerDefense.towers = towers;
     }
 
     //Just a background box

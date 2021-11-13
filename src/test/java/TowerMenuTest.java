@@ -12,7 +12,7 @@ public class TowerMenuTest {
     @Test
     public void testShopTowersAttributes() {
         new TowerDefense().initUI();
-        ArrayList<Tower> towers = TowerDefense.getTowers();
+        ArrayList<Tower> towers = TowerDefense.getTowersType();
         for (Tower tower: towers) {
             Assertions.assertNotNull(tower);
             Assertions.assertNotNull(tower.getName());
@@ -22,8 +22,8 @@ public class TowerMenuTest {
 
     @Test
     public void testShopTowersDifference() {
-        ArrayList<Tower> towers = TowerDefense.getTowers();
-        Set<String> descriptions = new HashSet<String>();
+        ArrayList<Tower> towers = TowerDefense.getTowersType();
+        Set<String> descriptions = new HashSet<>();
         for (Tower tower: towers) {
             Assertions.assertNotNull(tower);
             Assertions.assertNotNull(tower.getDescription());

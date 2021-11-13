@@ -19,12 +19,12 @@ public class TestMonumentDamaged {
     public void testMonumentDestroyed() {
         TowerDefense.setHealth(0);
         GruntEnemyFunctionality test = new GruntEnemyFunctionality();
-        Assertions.assertTrue(test.isDead());
+        Assertions.assertTrue(test.towerDead());
         TowerDefense.setHealth(4);
         TowerDefense.attackMonument(5);
-        Assertions.assertTrue(test.isDead());
+        Assertions.assertTrue(test.towerDead());
         TowerDefense.setHealth(5);
         TowerDefense.attackMonument(5);
-        Assertions.assertTrue(test.isDead());
+        Assertions.assertTrue(test.towerDead());
     }
 }
