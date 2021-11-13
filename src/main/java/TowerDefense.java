@@ -17,10 +17,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
@@ -66,7 +63,9 @@ public class TowerDefense extends GameApplication {
     private static ArrayList<Tower> towers = new ArrayList<>();
     private static ArrayList<Entity> enemies = new ArrayList<>();
 
-    public static Timer gameTimer;
+    private static Pane pane;
+
+    private static Timer gameTimer;
 
     public static int getInitMoney() {
         if (difficulty == GameDifficulty.EASY) {
@@ -228,7 +227,7 @@ public class TowerDefense extends GameApplication {
                 new Point2D(origin.getX() + 770, origin.getY() + 550),
                 new Point2D(origin.getX() + 770, origin.getY())
         ));
-
+        pane = getGameScene().getContentRoot();
         iceTowerTokens.setValue(0);
         earthTowerTokens.setValue(0);
         fireTowerTokens.setValue(0);
@@ -469,7 +468,7 @@ public class TowerDefense extends GameApplication {
                 tempIceTower.setLocation(x-20, y-20);
                 tempIceTower.setDelay(1000); //figure out delay
                 tempIceTower.setDamage(1); //figure out damage
-                tempIceTower.setRadius(150); //figure out radius
+                tempIceTower.setRadius(125); //figure out radius
                 //Circle circle = new Circle(tempIceTower.getRadius(),Color.CYAN);
                 //circle.setCenterX(tempIceTower.getLocation().getX());
                 //circle.setCenterY(tempIceTower.getLocation().getY());
@@ -533,6 +532,10 @@ public class TowerDefense extends GameApplication {
         }
     }
 
+    public static Pane getPane() {
+        return pane;
+    }
+
     public static ArrayList<Tower> getTowers() {
         return towers;
     }
@@ -543,6 +546,10 @@ public class TowerDefense extends GameApplication {
 
     public static void setTowers(ArrayList<Tower> towers) {
         TowerDefense.towers = towers;
+    }
+
+    public static Timer getFXGLGameTimer() {
+        return gameTimer;
     }
 
     //Just a background box
