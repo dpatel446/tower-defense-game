@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import static com.almasb.fxgl.dsl.FXGL.showConfirm;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
-public class EnemyFunctionality extends Component {
+public class BruteEnemyFunctionality extends Component {
     private List<Point2D> gamePathing;
     private Point2D personalPathing;
     private double speed;
@@ -20,7 +20,7 @@ public class EnemyFunctionality extends Component {
 
     @Override
     public void onUpdate(double tpf) {
-        speed = tpf * 60 * 2;
+        speed = tpf * 100;
         Point2D velocity = personalPathing
                 .subtract(entity.getPosition())
                 .normalize()
@@ -36,7 +36,7 @@ public class EnemyFunctionality extends Component {
                 entity.removeFromWorld();
                 gamePathing.removeAll(gamePathing);
                 if (!isDead()) {
-                    TowerDefense.attackMonument();
+                    TowerDefense.attackMonument(20);
                 }
                 if (isDead()) {
                     Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;

@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import static com.almasb.fxgl.dsl.FXGL.*;
 import static com.almasb.fxgl.dsl.FXGL.entityBuilder;
@@ -172,8 +173,8 @@ public class TowerDefense extends GameApplication {
         launch(args);
     }
 
-    public static void attackMonument() {
-        TowerDefense.setHealth(TowerDefense.getHealth().intValue() - 5);
+    public static void attackMonument(int damage) {
+        TowerDefense.setHealth(TowerDefense.getHealth().intValue() - damage);
     }
 
     @Override
@@ -236,7 +237,19 @@ public class TowerDefense extends GameApplication {
     }
 
     private void spawnEnemy() {
-        spawn("enemy", origin.getX(), origin.getY());
+        Random rand = new Random();
+        int enemyTicket = rand.nextInt(3);
+        switch (enemyTicket) {
+            case 0:
+                spawn("grunt enemy", origin.getX(), origin.getY());
+                break;
+            case 1:
+                spawn("brute enemy", origin.getX(), origin.getY());
+                break;
+            case 2:
+                spawn("tactical enemy", origin.getX(), origin.getY());
+                break;
+        }
     }
 
     public Rectangle getInitHealth() {

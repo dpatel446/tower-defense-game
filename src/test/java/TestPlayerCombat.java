@@ -14,7 +14,7 @@ public class TestPlayerCombat {
 
         assertEquals(100, init.getHealth().intValue());
 
-        init.attackMonument();
+        init.attackMonument(5);
         assertEquals(95, init.getHealth().intValue());
 
 
@@ -23,7 +23,7 @@ public class TestPlayerCombat {
 
         assertEquals(75, init.getHealth().intValue());
 
-        init.attackMonument();
+        init.attackMonument(5);
         assertEquals(70, init.getHealth().intValue());
 
         init.setDifficulty(GameDifficulty.HARD);
@@ -31,7 +31,7 @@ public class TestPlayerCombat {
 
         assertEquals(50, init.getHealth().intValue());
 
-        init.attackMonument();
+        init.attackMonument(5);
         assertEquals(45, init.getHealth().intValue());
     }
 

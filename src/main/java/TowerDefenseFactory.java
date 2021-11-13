@@ -33,12 +33,30 @@ public class TowerDefenseFactory implements EntityFactory {
                 .build();
     }
 
-    @Spawns("enemy")
-    public Entity newEnemy(SpawnData data) {
+    @Spawns("grunt enemy")
+    public Entity newGruntEnemy(SpawnData data) {
         return entityBuilder(data)
                 .type(EntityType.ENEMY)
-                .view(new Circle(20, Color.YELLOW))
-                .with(new EnemyFunctionality())
+                .view(new Circle(10, Color.YELLOW))
+                .with(new GruntEnemyFunctionality())
+                .build();
+    }
+
+    @Spawns("brute enemy")
+    public Entity newBruteEnemy(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.ENEMY)
+                .view(new Circle(30, Color.DARKRED))
+                .with(new BruteEnemyFunctionality())
+                .build();
+    }
+
+    @Spawns("tactical enemy")
+    public Entity newTacticalEnemy(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.ENEMY)
+                .view(new Circle(20, Color.BLUE))
+                .with(new TacticalEnemyFunctionality())
                 .build();
     }
 }

@@ -9,7 +9,7 @@ public class TestMonumentDamaged {
         TowerDefense.setHealth(startingHealth);
         Assertions.assertEquals(startingHealth, TowerDefense.getHealth().intValue());
         for (int i = 0; i < numAttacks; i++) {
-            TowerDefense.attackMonument(); // -5 hp per attack
+            TowerDefense.attackMonument(5); // -5 hp per attack
             Assertions.assertEquals(startingHealth - (5 * (i + 1)),
                     TowerDefense.getHealth().intValue());
         }
@@ -18,13 +18,13 @@ public class TestMonumentDamaged {
     @Test
     public void testMonumentDestroyed() {
         TowerDefense.setHealth(0);
-        EnemyFunctionality test = new EnemyFunctionality();
+        GruntEnemyFunctionality test = new GruntEnemyFunctionality();
         Assertions.assertTrue(test.isDead());
         TowerDefense.setHealth(4);
-        TowerDefense.attackMonument();
+        TowerDefense.attackMonument(5);
         Assertions.assertTrue(test.isDead());
         TowerDefense.setHealth(5);
-        TowerDefense.attackMonument();
+        TowerDefense.attackMonument(5);
         Assertions.assertTrue(test.isDead());
     }
 }
