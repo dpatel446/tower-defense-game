@@ -37,6 +37,7 @@ public class TowerAttackController {
                 if (enemy.getInt("health") <= 0) {
                     enemy.removeFromWorld(); //bye bye
                     TowerDefense.getEnemies().remove(enemy);
+                    TowerDefense.setMoney(TowerDefense.getMoney().intValue() + 2);
                 }
             }
         }
