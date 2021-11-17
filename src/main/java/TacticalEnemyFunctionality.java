@@ -1,3 +1,4 @@
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
 
@@ -60,6 +61,7 @@ public class TacticalEnemyFunctionality extends Component {
                 }
                 TowerDefense.setTowers(new ArrayList<Tower>());
                 //clear waypoints list of enemies
+                TowerDefense.setEnemies(new ArrayList<Entity>());
                 getGameController().gotoMainMenu();
             } else {
                 getGameController().exit();

@@ -548,6 +548,10 @@ public class TowerDefense extends GameApplication {
         TowerDefense.towers = towers;
     }
 
+    public static void setEnemies(ArrayList<Entity> enemies) {
+        TowerDefense.enemies = enemies;
+    }
+
     public static Timer getFXGLGameTimer() {
         return gameTimer;
     }
