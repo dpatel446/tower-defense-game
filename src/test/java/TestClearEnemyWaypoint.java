@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class TestClearEnemyWaypoint {
     @Test
-    public void VisibilityTest() {
+    public void visibilityTest() {
         Tower firetower = new IceTower();
         firetower.setDamage(3);
         Text fire = new Text("-" + firetower.getDamage());
@@ -34,8 +34,9 @@ public class TestClearEnemyWaypoint {
     }
 
     @Test
-    public void ClearEnemyWaypoint() {
-        ArrayList<com.almasb.fxgl.entity.Entity> enemies = new ArrayList<>(TowerDefense.getEnemies());
+    public void clearEnemyWaypoint() {
+        ArrayList<com.almasb.fxgl.entity.Entity> enemies =
+                new ArrayList<>(TowerDefense.getEnemies());
         TowerDefense.setEnemies(new ArrayList<>());
         assertEquals(enemies, TowerDefense.getEnemies());
     }

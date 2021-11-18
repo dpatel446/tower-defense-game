@@ -1,12 +1,6 @@
-import com.almasb.fxgl.entity.Entity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-
-import static com.almasb.fxgl.dsl.FXGL.spawn;
 
 public class GarySheppardM5Tests {
     @Test
@@ -32,18 +26,20 @@ public class GarySheppardM5Tests {
         for (int i = 0; i < 10; i++) {
             Integer enemy = null;
             switch (enemyTicket) {
-                case 0:
-                    enemy = 0;
-                    listEnemies[i] = enemy;
-                    break;
-                case 1:
-                    enemy = 1;
-                    listEnemies[i] = enemy;
-                    break;
-                case 2:
-                    enemy = 2;
-                    listEnemies[i] = enemy;
-                    break;
+            case 0:
+                enemy = 0;
+                listEnemies[i] = enemy;
+                break;
+            case 1:
+                enemy = 1;
+                listEnemies[i] = enemy;
+                break;
+            case 2:
+                enemy = 2;
+                listEnemies[i] = enemy;
+                break;
+            default:
+                //hi
             }
         }
 

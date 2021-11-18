@@ -45,6 +45,7 @@ public class TestPlayerCombat {
 
 
         init.setDifficulty(GameDifficulty.EASY);
+        init.setIsStarted(false);
         init.setMoney(500);
         init.setInitHealth();
 

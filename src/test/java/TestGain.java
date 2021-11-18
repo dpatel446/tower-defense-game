@@ -8,9 +8,9 @@ public class TestGain {
     @Test
     public void testMoneyGain() throws InterruptedException {
 
-        TestGain.TestThread thread = new TestGain.TestThread();
-        thread.start();
-        thread.sleep(3000);
+        //TestGain.TestThread thread = new TestGain.TestThread();
+        //thread.start();
+        //thread.sleep(3000);
         //Timeout to allow the FXGL application to initialize its services prior to running test
 
         init.setDifficulty(GameDifficulty.EASY);

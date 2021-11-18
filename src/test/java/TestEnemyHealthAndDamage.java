@@ -23,9 +23,9 @@ public class TestEnemyHealthAndDamage {
 
     @Test
     public void testEnemyDamageDisplay() throws InterruptedException {
-        TestEnemyHealthAndDamage.TestThread thread = new TestEnemyHealthAndDamage.TestThread();
-        thread.start();
-        thread.sleep(3000);
+        //TestEnemyHealthAndDamage.TestThread thread = new TestEnemyHealthAndDamage.TestThread();
+        //thread.start();
+        //thread.sleep(3000);
         //Timeout to allow the FXGL application to initialize its services prior to running test
 
         init.setDifficulty(GameDifficulty.EASY);

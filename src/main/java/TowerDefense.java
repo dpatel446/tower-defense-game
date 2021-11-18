@@ -19,8 +19,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -248,21 +246,23 @@ public class TowerDefense extends GameApplication {
         int enemyTicket = rand.nextInt(3);
         Entity enemy = null;
         switch (enemyTicket) {
-            case 0:
-                enemy = spawn("grunt enemy", origin.getX(), origin.getY());
-                enemy.setProperty("health", 5);
-                enemies.add(enemy);
-                break;
-            case 1:
-                enemy = spawn("brute enemy", origin.getX(), origin.getY());
-                enemy.setProperty("health", 10);
-                enemies.add(enemy);
-                break;
-            case 2:
-                enemy = spawn("tactical enemy", origin.getX(), origin.getY());
-                enemy.setProperty("health", 8);
-                enemies.add(enemy);
-                break;
+        case 0:
+            enemy = spawn("grunt enemy", origin.getX(), origin.getY());
+            enemy.setProperty("health", 5);
+            enemies.add(enemy);
+            break;
+        case 1:
+            enemy = spawn("brute enemy", origin.getX(), origin.getY());
+            enemy.setProperty("health", 10);
+            enemies.add(enemy);
+            break;
+        case 2:
+            enemy = spawn("tactical enemy", origin.getX(), origin.getY());
+            enemy.setProperty("health", 8);
+            enemies.add(enemy);
+            break;
+        default:
+            //for checkstyle
         }
     }
 
@@ -465,7 +465,7 @@ public class TowerDefense extends GameApplication {
                         new SpawnData(x, y)
                                 .put("color", tempIceTower.getColor())
                 );
-                tempIceTower.setLocation(x-20, y-20);
+                tempIceTower.setLocation(x - 20, y - 20);
                 tempIceTower.setDelay(1000); //figure out delay
                 tempIceTower.setDamage(1); //figure out damage
                 tempIceTower.setRadius(125); //figure out radius
@@ -489,7 +489,7 @@ public class TowerDefense extends GameApplication {
                                 .put("color", tempEarthTower.getColor())
                 );
                 tempEarthTower.setLocation(x, y);
-                tempEarthTower.setLocation(x-20, y-20);
+                tempEarthTower.setLocation(x - 20, y - 20);
                 tempEarthTower.setDelay(2000); //figure out delay
                 tempEarthTower.setDamage(2); //figure out damage
                 tempEarthTower.setRadius(200); //figure out radius
@@ -512,7 +512,7 @@ public class TowerDefense extends GameApplication {
                         new SpawnData(x, y)
                                 .put("color", tempFireTower.getColor())
                 );
-                tempFireTower.setLocation(x-20, y-20);
+                tempFireTower.setLocation(x - 20, y - 20);
                 tempFireTower.setDelay(2000); //figure out delay
                 tempFireTower.setDamage(3); //figure out damage
                 tempFireTower.setRadius(150); //figure out radius
@@ -552,7 +552,7 @@ public class TowerDefense extends GameApplication {
         TowerDefense.enemies = enemies;
     }
 
-    public static Timer getFXGLGameTimer() {
+    public static Timer getFXGameTimer() {
         return gameTimer;
     }
 

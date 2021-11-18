@@ -26,7 +26,8 @@ public abstract class Tower {
         }
     }
 
-    protected Tower(String name, String type, GameDifficulty difficulty, double radius, int damage, long delay) {
+    protected Tower(String name, String type, GameDifficulty difficulty,
+                    double radius, int damage, long delay) {
         this.radius = radius;
         this.delay = delay;
         this.damage = damage;
