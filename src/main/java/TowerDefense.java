@@ -243,7 +243,7 @@ public class TowerDefense extends GameApplication {
                 .buildAndAttach();
     }
 
-    private void spawnEnemy() {
+    public void spawnEnemy() {
         Random rand = new Random();
         int enemyTicket = rand.nextInt(3);
         Entity enemy = null;
