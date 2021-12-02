@@ -450,8 +450,50 @@ public class TowerDefense extends GameApplication {
                         }
                     }
                 }
+                upgradeTower();
             }
         }, MouseButton.PRIMARY);
+    }
+
+    private void upgradeTower() {
+        if (towers.size() <= 0) {
+            return;
+        }
+        if (towerSelected == null || ((towerSelected instanceof IceTower)
+                    && (iceTowerTokens.getValue() <= 0)) || ((towerSelected instanceof EarthTower)
+                && (earthTowerTokens.getValue() <= 0)) || ((towerSelected instanceof FireTower)
+                && (fireTowerTokens.getValue() <= 0))) {
+            ArrayList<Tower> inUpgradeRange = new ArrayList<>();
+            Point2D mouseLocation = getInput().getMousePositionWorld();
+            for (Tower tower : towers) {
+                if (tower.getLocation().distance(mouseLocation) <= 20.0) {
+                    if (money.getValue() >= tower.getCost()) {
+                        inUpgradeRange.add(tower);
+                    } else {
+                        break;
+                    }
+                }
+            }
+            if (inUpgradeRange.size() == 0) {
+                return;
+            }
+            double minDistance = Double.MAX_VALUE;
+            Tower closest = null;
+            for (Tower tower : inUpgradeRange) {
+                if (tower.getLocation().distance(mouseLocation) < minDistance) {
+                    closest = tower;
+                }
+            }
+            if (closest == null) {
+                throw new UnknownError("Closest tower had distance greater than Double.MAX_VALUE");
+            } else {
+                if (money.getValue() >= closest.getCost()) {
+                    closest.setDamage(closest.getDamage() + 1);
+                    money.setValue(money.getValue() - closest.getCost());
+                }
+
+            }
+        }
     }
 
     private void towerSpawner() {
@@ -465,7 +507,7 @@ public class TowerDefense extends GameApplication {
                         new SpawnData(x, y)
                                 .put("color", tempIceTower.getColor())
                 );
-                tempIceTower.setLocation(x - 20, y - 20);
+                tempIceTower.setLocation(x + 20, y + 20);
                 tempIceTower.setDelay(1000); //figure out delay
                 tempIceTower.setDamage(1); //figure out damage
                 tempIceTower.setRadius(125); //figure out radius
@@ -489,7 +531,7 @@ public class TowerDefense extends GameApplication {
                                 .put("color", tempEarthTower.getColor())
                 );
                 tempEarthTower.setLocation(x, y);
-                tempEarthTower.setLocation(x - 20, y - 20);
+                tempEarthTower.setLocation(x + 20, y + 20);
                 tempEarthTower.setDelay(2000); //figure out delay
                 tempEarthTower.setDamage(2); //figure out damage
                 tempEarthTower.setRadius(200); //figure out radius
@@ -512,7 +554,7 @@ public class TowerDefense extends GameApplication {
                         new SpawnData(x, y)
                                 .put("color", tempFireTower.getColor())
                 );
-                tempFireTower.setLocation(x - 20, y - 20);
+                tempFireTower.setLocation(x + 20, y + 20);
                 tempFireTower.setDelay(2000); //figure out delay
                 tempFireTower.setDamage(3); //figure out damage
                 tempFireTower.setRadius(150); //figure out radius

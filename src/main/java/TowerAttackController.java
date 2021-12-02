@@ -13,13 +13,19 @@ public class TowerAttackController {
         attackInRange(tower.getDamage(), tower.getLocation(), tower.getRadius());
     }
 
-    public static void attackInRange(int damage, Point2D towerLocation, double radius) {
+    public synchronized static void attackInRange(int damage, Point2D towerLocation, double radius) {
         ArrayList<Entity> enemies = new ArrayList<>(TowerDefense.getEnemies());
 
         for (Entity enemy : enemies) {
             if (towerLocation.distance(enemy.getPosition()) <= radius) {
                 //damage enemy
-                enemy.setProperty("health", enemy.getInt("health") - damage);
+                try {
+                    enemy.setProperty("health", enemy.getInt("health") - damage);
+                } catch (IllegalArgumentException e) {
+                    enemy.setProperty("health", -1);
+                    TowerDefense.getEnemies().remove(enemy);
+                    continue;
+                }
                 Text text = new Text(enemy.getX(), enemy.getY(), "-" + damage);
                 text.setFont(new Font(20));
                 text.setFill(Color.RED);
