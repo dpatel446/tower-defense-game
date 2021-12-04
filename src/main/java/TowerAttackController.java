@@ -6,6 +6,10 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
+
+import static com.almasb.fxgl.dsl.FXGL.showConfirm;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameController;
 
 public class TowerAttackController {
 
@@ -37,10 +41,15 @@ public class TowerAttackController {
                 //^^really basic enemy hit visual
 
                 if (enemy.getInt("health") <= 0) {
-                    enemy.removeFromWorld(); //bye bye
-                    TowerDefense.getEnemies().remove(enemy);
                     TowerDefense.setMoney(TowerDefense.getMoney().intValue() + 2);
                     TowerDefense.setEnemiesKilled(TowerDefense.getEnemiesKilled() + 1);
+                    if (enemy.getBoolean("boss")) {
+                        Consumer<Boolean> consumer2 = ConsumerInterfaceExample::handleInput;
+                        showConfirm("You won, would you like to restart?", consumer2);
+                    }
+                    enemy.removeFromWorld(); //bye bye
+                    TowerDefense.getEnemies().remove(enemy);
+
                 }
             }
         }
@@ -49,6 +58,24 @@ public class TowerAttackController {
     public static void removeText() {
         TowerDefense.getPane().getChildren()
                 .removeIf(obj -> (obj.getClass().toString().equals("text")));
+    }
+    private static class ConsumerInterfaceExample {
+        static void handleInput(boolean input) {
+            if (input) {
+                TowerDefense.setIsStarted(false);
+                TowerDefense.setBossSpawned(false);
+                TowerDefense.setEnemiesKilled(0);
+                for (Tower t : TowerDefense.getTowers()) {
+                    t.setDelay(0L);
+                }
+                TowerDefense.setTowers(new ArrayList<Tower>());
+                //clear waypoints list of enemies
+                TowerDefense.setEnemies(new ArrayList<Entity>());
+                getGameController().gotoMainMenu();
+            } else {
+                getGameController().exit();
+            }
+        }
     }
 
 }

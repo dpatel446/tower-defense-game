@@ -268,6 +268,7 @@ public class TowerDefense extends GameApplication {
         if (enemiesKilled > 12 & !bossSpawned.getValue()) {
             enemy = spawn("boss enemy", origin.getX(), origin.getY());
             enemy.setProperty("health", 50);
+            enemy.setProperty("boss", true);
             enemies.add(enemy);
             setBossSpawned(true);
         }
@@ -275,16 +276,19 @@ public class TowerDefense extends GameApplication {
         case 0:
             enemy = spawn("grunt enemy", origin.getX(), origin.getY());
             enemy.setProperty("health", 5);
+            enemy.setProperty("boss", false);
             enemies.add(enemy);
             break;
         case 1:
             enemy = spawn("brute enemy", origin.getX(), origin.getY());
             enemy.setProperty("health", 10);
+            enemy.setProperty("boss", false);
             enemies.add(enemy);
             break;
         case 2:
             enemy = spawn("tactical enemy", origin.getX(), origin.getY());
             enemy.setProperty("health", 8);
+            enemy.setProperty("boss", false);
             enemies.add(enemy);
             break;
         default:
