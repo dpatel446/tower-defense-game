@@ -59,4 +59,13 @@ public class TowerDefenseFactory implements EntityFactory {
                 .with(new TacticalEnemyFunctionality())
                 .build();
     }
+
+    @Spawns("boss enemy")
+    public Entity newBossEnemy(SpawnData data) {
+        return entityBuilder(data)
+                .type(EntityType.ENEMY)
+                .view(new Circle(50, Color.LIGHTGOLDENRODYELLOW))
+                .with(new BossEnemyFunctionality())
+                .build();
+    }
 }

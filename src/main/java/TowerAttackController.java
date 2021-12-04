@@ -40,6 +40,7 @@ public class TowerAttackController {
                     enemy.removeFromWorld(); //bye bye
                     TowerDefense.getEnemies().remove(enemy);
                     TowerDefense.setMoney(TowerDefense.getMoney().intValue() + 2);
+                    TowerDefense.setEnemiesKilled(TowerDefense.getEnemiesKilled() + 1);
                 }
             }
         }

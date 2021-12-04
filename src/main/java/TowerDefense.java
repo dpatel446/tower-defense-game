@@ -60,6 +60,7 @@ public class TowerDefense extends GameApplication {
     private Point2D origin = new Point2D(175, 45);
     private static ArrayList<Tower> towers = new ArrayList<>();
     private static ArrayList<Entity> enemies = new ArrayList<>();
+    private static int enemiesKilled = 0;
 
     private static Pane pane;
 
@@ -229,6 +230,8 @@ public class TowerDefense extends GameApplication {
         iceTowerTokens.setValue(0);
         earthTowerTokens.setValue(0);
         fireTowerTokens.setValue(0);
+        towers.clear();
+        enemies.clear();
 
         entityBuilder()
                 .at(900, 0)
@@ -245,6 +248,11 @@ public class TowerDefense extends GameApplication {
         Random rand = new Random();
         int enemyTicket = rand.nextInt(3);
         Entity enemy = null;
+        if (enemiesKilled == 7) {
+            enemy = spawn("boss enemy", origin.getX(), origin.getY());
+            enemy.setProperty("health", 50);
+            enemies.add(enemy);
+        }
         switch (enemyTicket) {
         case 0:
             enemy = spawn("grunt enemy", origin.getX(), origin.getY());
@@ -262,7 +270,7 @@ public class TowerDefense extends GameApplication {
             enemies.add(enemy);
             break;
         default:
-            //for checkstyle
+            //checkstyle
         }
     }
 
@@ -592,6 +600,14 @@ public class TowerDefense extends GameApplication {
 
     public static void setEnemies(ArrayList<Entity> enemies) {
         TowerDefense.enemies = enemies;
+    }
+
+    public static int getEnemiesKilled() {
+        return enemiesKilled;
+    }
+
+    public static void setEnemiesKilled(int kill) {
+        TowerDefense.enemiesKilled = kill;
     }
 
     public static Timer getFXGameTimer() {
