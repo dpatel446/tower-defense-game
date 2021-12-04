@@ -46,7 +46,7 @@ public class TowerAttackController {
                     if (enemy.getBoolean("boss")) {
                         TowerDefense.getFXGameTimer().runOnceAfter(() -> {
                             Consumer<Boolean> consumer2 = ConsumerInterfaceExample::handleInput;
-                            showConfirm("GAME OVER" +"\n" +
+                            showConfirm("YOU WIN" +"\n" +
                                     "Enemies Killed: " + TowerDefense.getEnemiesKilled() + "\n"+
                                     "Money Gained: " + 2*TowerDefense.getEnemiesKilled() + "\n"+
                                     String.format("Game Time: %.2f", TowerDefense.getGameTime()) + "\n"+

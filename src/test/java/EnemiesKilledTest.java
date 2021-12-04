@@ -2,33 +2,37 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TestGain {
+public class EnemiesKilledTest {
     private TowerDefense init = new TowerDefense();
 
     @Test
-    public void testMoneyGain() throws InterruptedException {
+    public void testKillCounter() throws InterruptedException {
 
-        TestGain.TestThread thread = new TestGain.TestThread();
-        thread.start();
-        thread.sleep(3000);
+        //Uncomment the following lines out to run the tests individually
+        //EnemiesKilledTest.TestThread thread = new EnemiesKilledTest.TestThread();
+        //thread.start();
+        //thread.sleep(3000);
+
         //Timeout to allow the FXGL application to initialize its services prior to running test
 
         init.setDifficulty(GameDifficulty.EASY);
         init.setMoney(500);
         init.setInitHealth();
         init.setIsStarted(false);
+        init.setEnemiesKilled(0);
 
         Tower t = new FireTower();
         t.setLocation(175, 60);
         t.setDamage(50);
         t.setRadius(100);
         init.startCombat();
-        init.initGame();
+        //init.initGame();
         init.spawnEnemy();
         //thread.sleep(500);
         TowerAttackController.attackController(t);
 
-        assertEquals(502, TowerDefense.getMoney().intValue());
+        assertEquals(1, TowerDefense.getEnemiesKilled());
+
     }
 
     private static class TestThread extends Thread {

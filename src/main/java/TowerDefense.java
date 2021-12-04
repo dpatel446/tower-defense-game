@@ -271,6 +271,7 @@ public class TowerDefense extends GameApplication {
             enemy.setProperty("boss", true);
             enemies.add(enemy);
             setBossSpawned(true);
+            return;
         }
         switch (enemyTicket) {
         case 0:
