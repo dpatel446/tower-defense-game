@@ -1,6 +1,7 @@
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import javafx.geometry.Point2D;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,10 @@ public class BruteEnemyFunctionality extends Component {
                     TowerDefense.attackMonument(20);
                 }
                 if (towerDead()) {
-                    Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
-                    showConfirm("Restart?", consumer1);
+                    TowerDefense.getFXGameTimer().runOnceAfter(() -> {
+                        Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
+                        showConfirm("Restart?", consumer1);
+                    }, Duration.millis(250));
                 }
             }
         }

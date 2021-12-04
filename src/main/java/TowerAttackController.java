@@ -44,8 +44,10 @@ public class TowerAttackController {
                     TowerDefense.setMoney(TowerDefense.getMoney().intValue() + 2);
                     TowerDefense.setEnemiesKilled(TowerDefense.getEnemiesKilled() + 1);
                     if (enemy.getBoolean("boss")) {
-                        Consumer<Boolean> consumer2 = ConsumerInterfaceExample::handleInput;
-                        showConfirm("You won, would you like to restart?", consumer2);
+                        TowerDefense.getFXGameTimer().runOnceAfter(() -> {
+                            Consumer<Boolean> consumer2 = ConsumerInterfaceExample::handleInput;
+                            showConfirm("You won, would you like to restart?", consumer2);
+                        }, Duration.millis(250));
                     }
                     enemy.removeFromWorld(); //bye bye
                     TowerDefense.getEnemies().remove(enemy);
@@ -62,6 +64,7 @@ public class TowerAttackController {
     private static class ConsumerInterfaceExample {
         static void handleInput(boolean input) {
             if (input) {
+                TowerAttackController.removeText();
                 TowerDefense.setIsStarted(false);
                 TowerDefense.setBossSpawned(false);
                 TowerDefense.setEnemiesKilled(0);
