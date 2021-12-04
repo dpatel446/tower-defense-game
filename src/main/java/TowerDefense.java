@@ -161,7 +161,7 @@ public class TowerDefense extends GameApplication {
         return testIceStore;
     }
 
-    public static Timer getGameTime() { return TowerDefense.gameTimer; }
+    public static double getGameTime() { return TowerDefense.gameTimer.getNow(); }
 
     public static Button getTestEarthStore() {
         return testEarthStore;

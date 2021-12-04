@@ -44,7 +44,10 @@ public class BossEnemyFunctionality extends Component {
                 if (towerDead()) {
                     TowerDefense.getFXGameTimer().runOnceAfter(() -> {
                         Consumer<Boolean> consumer1 = ConsumerInterfaceExample::handleInput;
-                        showConfirm("Restart?", consumer1);
+                        showConfirm("GAME OVER" +"\n" +
+                                "Enemies Killed: " + TowerDefense.getEnemiesKilled() + "\n"+
+                                "Money Gained: " + 2*TowerDefense.getEnemiesKilled() + "\n"+
+                                String.format("Game Time: %.2f", TowerDefense.getGameTime()), consumer1);
                     }, Duration.millis(250));
                 }
             }
