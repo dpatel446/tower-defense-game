@@ -232,6 +232,7 @@ public class TowerDefense extends GameApplication {
         fireTowerTokens.setValue(0);
         towers.clear();
         enemies.clear();
+        TowerDefense.setEnemiesKilled(0);
 
         entityBuilder()
                 .at(900, 0)
