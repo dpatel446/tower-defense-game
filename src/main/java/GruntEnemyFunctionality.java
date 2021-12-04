@@ -56,6 +56,8 @@ public class GruntEnemyFunctionality extends Component {
         static void handleInput(boolean input) {
             if (input) {
                 TowerDefense.setIsStarted(false);
+                TowerDefense.setBossSpawned(false);
+                TowerDefense.setEnemiesKilled(0);
                 for (Tower t : TowerDefense.getTowers()) {
                     t.setDelay(0L);
                 }

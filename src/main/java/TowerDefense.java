@@ -41,6 +41,9 @@ public class TowerDefense extends GameApplication {
     private static IntegerProperty health = new SimpleIntegerProperty(0);
     private static BooleanProperty isStarted = new SimpleBooleanProperty(false);
     private static GameSettings gameSettings;
+    private static BooleanProperty bossSpawned = new SimpleBooleanProperty(false);
+
+
 
     private static String baseTextField = "Enter your name here";
 
@@ -90,6 +93,14 @@ public class TowerDefense extends GameApplication {
 
     public static void setIsStarted(boolean b) {
         TowerDefense.isStarted.setValue(b);
+    }
+
+    public static boolean getbossSpawned() {
+        return TowerDefense.bossSpawned.getValue().booleanValue();
+    }
+
+    public static void setBossSpawned(boolean b) {
+        TowerDefense.bossSpawned.setValue(b);
     }
 
     public static IntegerProperty getHealth() {
@@ -149,6 +160,8 @@ public class TowerDefense extends GameApplication {
     public static Button getTestIceStore() {
         return testIceStore;
     }
+
+    public static Timer getGameTime() { return TowerDefense.gameTimer; }
 
     public static Button getTestEarthStore() {
         return testEarthStore;
@@ -249,10 +262,14 @@ public class TowerDefense extends GameApplication {
         Random rand = new Random();
         int enemyTicket = rand.nextInt(3);
         Entity enemy = null;
-        if (enemiesKilled == 7) {
+        if (bossSpawned.getValue()) {
+            return;
+        }
+        if (enemiesKilled > 12 & !bossSpawned.getValue()) {
             enemy = spawn("boss enemy", origin.getX(), origin.getY());
             enemy.setProperty("health", 50);
             enemies.add(enemy);
+            setBossSpawned(true);
         }
         switch (enemyTicket) {
         case 0:
