@@ -60,10 +60,12 @@ public class TowerDefense extends GameApplication {
     private static Button testEarthStored;
     private static Button testFireStored;
     private static ArrayList<Tower> towerType = new ArrayList<>();
+    private static boolean testing = false;
     private Point2D origin = new Point2D(175, 45);
     private static ArrayList<Tower> towers = new ArrayList<>();
     private static ArrayList<Entity> enemies = new ArrayList<>();
     private static int enemiesKilled = 0;
+    private static Point2D debugLocation = null;
 
     private static Pane pane;
 
@@ -193,6 +195,14 @@ public class TowerDefense extends GameApplication {
 
     public static void attackMonument(int damage) {
         TowerDefense.setHealth(TowerDefense.getHealth().intValue() - damage);
+    }
+
+    public static void setTesting(boolean testing) {
+        TowerDefense.testing = testing;
+    }
+
+    public static void setDebugLocation(Point2D location) {
+        TowerDefense.debugLocation = location;
     }
 
     @Override
@@ -486,7 +496,7 @@ public class TowerDefense extends GameApplication {
         }, MouseButton.PRIMARY);
     }
 
-    private void upgradeTower() {
+    public void upgradeTower() {
         if (towers.size() <= 0) {
             return;
         }
@@ -495,7 +505,12 @@ public class TowerDefense extends GameApplication {
                 && (earthTowerTokens.getValue() <= 0)) || ((towerSelected instanceof FireTower)
                 && (fireTowerTokens.getValue() <= 0))) {
             ArrayList<Tower> inUpgradeRange = new ArrayList<>();
-            Point2D mouseLocation = getInput().getMousePositionWorld();
+            Point2D mouseLocation;
+            if (TowerDefense.testing) {
+                mouseLocation = debugLocation;
+            } else {
+                mouseLocation = getInput().getMousePositionWorld();
+            }
             for (Tower tower : towers) {
                 if (tower.getLocation().distance(mouseLocation) <= 20.0) {
                     if (money.getValue() >= tower.getCost()) {
